@@ -32,12 +32,12 @@ public class Shipping extends HttpServlet {
         request.setAttribute("informations", informations);
         request.getRequestDispatcher("shipping.jsp").forward(request, response);
 
-        Log log = new Log();
-        log.setEvent("/shipping");
-        log.setDescription("Truy cập trang thanh toán");
-        log.setUser(user);
-        log.setSeverityLevel(Log.INFO);
-        LogService.getInstance().insert(log);
+//        Log log = new Log();
+//        log.setEvent("/shipping");
+//        log.setDescription("Truy cập trang thanh toán");
+//        log.setUser(user);
+//        log.setSeverityLevel(Log.INFO);
+//        LogService.getInstance().insert(log);
     }
 
     @Override

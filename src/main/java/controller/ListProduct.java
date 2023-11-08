@@ -35,14 +35,14 @@ public class ListProduct extends HttpServlet {
         List<Category> categories = CaterogyService.getInstance().getListCategory(kind);
         request.setAttribute("categories", categories);
         request.getRequestDispatcher("list-product.jsp").forward(request, response);
-        Log log = new Log();
-        log.setEvent("/listProduct");
-        log.setDescription("Truy cập trang danh sách sản phẩm loại: "+kind);
-        log.setSeverityLevel(Log.INFO);
-        if (user != null) {
-            log.setUser(user);
-        }
-        LogService.getInstance().insert(log);
+//        Log log = new Log();
+//        log.setEvent("/listProduct");
+//        log.setDescription("Truy cập trang danh sách sản phẩm loại: "+kind);
+//        log.setSeverityLevel(Log.INFO);
+//        if (user != null) {
+//            log.setUser(user);
+//        }
+//        LogService.getInstance().insert(log);
     }
 
     @Override

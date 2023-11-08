@@ -24,19 +24,19 @@ public class AddCart extends HttpServlet {
 
         Product product = ProductService.getInstance().getProductById(idProduct);
 
-        Log log = new Log();
-        log.setEvent("/cart/addCart");
+//        Log log = new Log();
+//        log.setEvent("/cart/addCart");
+//
+//        if (user == null) {
+//            log.setSeverityLevel(Log.INFO);
+//            log.setDescription("Thêm sản phẩm \"" + product.getName() + "\" vào giỏ hàng không thành công, người dùng chưa đăng nhập!");
+//            LogService.getInstance().insert(log);
+//            return;
+//        }
 
-        if (user == null) {
-            log.setSeverityLevel(Log.INFO);
-            log.setDescription("Thêm sản phẩm \"" + product.getName() + "\" vào giỏ hàng không thành công, người dùng chưa đăng nhập!");
-            LogService.getInstance().insert(log);
-            return;
-        }
-
-        log.setSeverityLevel(Log.INFO);
-        log.setDescription("Thêm sản phẩm \"" + product.getName() + "\" vào giỏ hàng thành công. Số lượng " + amount);
-        LogService.getInstance().insert(log);
+//        log.setSeverityLevel(Log.INFO);
+//        log.setDescription("Thêm sản phẩm \"" + product.getName() + "\" vào giỏ hàng thành công. Số lượng " + amount);
+//        LogService.getInstance().insert(log);
 
         LineItem lineItem = new LineItem(product, amount);
         user.addToCart(lineItem);

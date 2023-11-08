@@ -32,15 +32,15 @@ public class ShowDetailProduct extends HttpServlet {
 
         request.getRequestDispatcher("product.jsp").forward(request, response);
 
-        Log log = new Log();
-        log.setEvent("/detail-product");
-        log.setSeverityLevel(Log.INFO);
-        log.setDescription("Truy cập chi tiết sản phẩm: " + product.getName());
-        User user = (User) request.getSession().getAttribute("auth");
-
-        if (user != null) log.setUser(user);
-
-        LogService.getInstance().insert(log);
+//        Log log = new Log();
+//        log.setEvent("/detail-product");
+//        log.setSeverityLevel(Log.INFO);
+//        log.setDescription("Truy cập chi tiết sản phẩm: " + product.getName());
+//        User user = (User) request.getSession().getAttribute("auth");
+//
+//        if (user != null) log.setUser(user);
+//
+//        LogService.getInstance().insert(log);
     }
 
     @Override

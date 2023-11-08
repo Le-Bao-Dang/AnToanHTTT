@@ -58,12 +58,12 @@ public class AddOrder extends HttpServlet {
         CartService.getInstance().removeAllProductByUserId(user.getId());
 
         request.getRequestDispatcher("finish-buy.jsp").forward(request, response);
-        Log log = new Log();
-        log.setEvent("/addOrder");
-        log.setDescription("Thanh toán thành công, tổng giá trị đơn hàng: " + order.getTotal());
-        log.setUser(user);
-        log.setSeverityLevel(Log.INFO);
-        LogService.getInstance().insert(log);
+//        Log log = new Log();
+//        log.setEvent("/addOrder");
+//        log.setDescription("Thanh toán thành công, tổng giá trị đơn hàng: " + order.getTotal());
+//        log.setUser(user);
+//        log.setSeverityLevel(Log.INFO);
+//        LogService.getInstance().insert(log);
 
     }
 
