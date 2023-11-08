@@ -177,10 +177,11 @@ public class UserService {
 
     public void addUser(User user) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("INSERT INTO user(id, name, phone, email, password, variety, status ) values (:id, :name, :phone, :email, :pass, :variety, :status)")
+            return handle.createUpdate("INSERT INTO user(id, name, phone, email,avatar, password, variety, status ) values (:id, :name, :phone, :email,:avatar, :pass, :variety, :status)")
                     .bind("id", user.getId())
                     .bind("name", user.getName())
                     .bind("email", user.getEmail())
+                    .bind("avatar", 501)
                     .bind("phone", user.getPhone())
                     .bind("pass", user.getPassword())
                     .bind("variety", 0)

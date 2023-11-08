@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : sql
+ Source Server         : Mysql
  Source Server Type    : MySQL
- Source Server Version : 100427 (10.4.27-MariaDB)
+ Source Server Version : 80031
  Source Host           : localhost:3306
  Source Schema         : projectt
 
  Target Server Type    : MySQL
- Target Server Version : 100427 (10.4.27-MariaDB)
+ Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 06/11/2023 15:15:20
+ Date: 08/11/2023 14:23:11
 */
 
 SET NAMES utf8mb4;
@@ -46,14 +46,14 @@ INSERT INTO `cart_item` VALUES (5, 5, 45, 1);
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `pa_category` int NULL DEFAULT NULL,
   `status` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `pa_category`(`pa_category` ASC) USING BTREE,
   INDEX `id`(`id` ASC) USING BTREE,
   CONSTRAINT `fk_category_category` FOREIGN KEY (`pa_category`) REFERENCES `category` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of category
@@ -81,14 +81,14 @@ INSERT INTO `category` VALUES (16, 'Vải', 3, 0);
 DROP TABLE IF EXISTS `discount`;
 CREATE TABLE `discount`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `code` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `value` double NOT NULL,
   `condition` int NOT NULL,
   `quantity` int NOT NULL,
   `start_date` datetime NOT NULL,
   `end_date` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of discount
@@ -124,7 +124,7 @@ CREATE TABLE `discount_product`  (
   INDEX `fk_discount_product_product`(`product_id` ASC) USING BTREE,
   CONSTRAINT `fk_discount_product_discount` FOREIGN KEY (`discount_id`) REFERENCES `discount` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_discount_product_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of discount_product
@@ -139,7 +139,7 @@ CREATE TABLE `event`  (
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `type` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of event
@@ -825,14 +825,14 @@ CREATE TABLE `import`  (
   `vendor_id` int NOT NULL,
   `create_date` datetime NOT NULL,
   `user_import_id` int NOT NULL,
-  `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `note` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL DEFAULT NULL,
   `status` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_import_vendor`(`vendor_id` ASC) USING BTREE,
   INDEX `fk_user_import`(`user_import_id` ASC) USING BTREE,
   CONSTRAINT `fk_import_vendor` FOREIGN KEY (`vendor_id`) REFERENCES `vendor` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_user_import` FOREIGN KEY (`user_import_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of import
@@ -883,7 +883,7 @@ CREATE TABLE `information`  (
   `ward_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `status` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of information
@@ -1142,501 +1142,501 @@ INSERT INTO `product_image` VALUES (1, 1);
 INSERT INTO `product_image` VALUES (1, 2);
 INSERT INTO `product_image` VALUES (1, 3);
 INSERT INTO `product_image` VALUES (1, 4);
-INSERT INTO `product_image` VALUES (1, 401);
 INSERT INTO `product_image` VALUES (2, 5);
 INSERT INTO `product_image` VALUES (2, 6);
 INSERT INTO `product_image` VALUES (2, 7);
 INSERT INTO `product_image` VALUES (2, 8);
-INSERT INTO `product_image` VALUES (2, 402);
 INSERT INTO `product_image` VALUES (3, 9);
 INSERT INTO `product_image` VALUES (3, 10);
 INSERT INTO `product_image` VALUES (3, 11);
 INSERT INTO `product_image` VALUES (3, 12);
-INSERT INTO `product_image` VALUES (3, 403);
 INSERT INTO `product_image` VALUES (4, 13);
 INSERT INTO `product_image` VALUES (4, 14);
 INSERT INTO `product_image` VALUES (4, 15);
 INSERT INTO `product_image` VALUES (4, 16);
-INSERT INTO `product_image` VALUES (4, 404);
 INSERT INTO `product_image` VALUES (5, 17);
 INSERT INTO `product_image` VALUES (5, 18);
 INSERT INTO `product_image` VALUES (5, 19);
 INSERT INTO `product_image` VALUES (5, 20);
-INSERT INTO `product_image` VALUES (5, 405);
 INSERT INTO `product_image` VALUES (6, 21);
 INSERT INTO `product_image` VALUES (6, 22);
 INSERT INTO `product_image` VALUES (6, 23);
 INSERT INTO `product_image` VALUES (6, 24);
-INSERT INTO `product_image` VALUES (6, 406);
 INSERT INTO `product_image` VALUES (7, 25);
 INSERT INTO `product_image` VALUES (7, 26);
 INSERT INTO `product_image` VALUES (7, 27);
 INSERT INTO `product_image` VALUES (7, 28);
-INSERT INTO `product_image` VALUES (7, 407);
 INSERT INTO `product_image` VALUES (8, 29);
 INSERT INTO `product_image` VALUES (8, 30);
 INSERT INTO `product_image` VALUES (8, 31);
 INSERT INTO `product_image` VALUES (8, 32);
-INSERT INTO `product_image` VALUES (8, 408);
 INSERT INTO `product_image` VALUES (9, 33);
 INSERT INTO `product_image` VALUES (9, 34);
 INSERT INTO `product_image` VALUES (9, 35);
 INSERT INTO `product_image` VALUES (9, 36);
-INSERT INTO `product_image` VALUES (9, 409);
 INSERT INTO `product_image` VALUES (10, 37);
 INSERT INTO `product_image` VALUES (10, 38);
 INSERT INTO `product_image` VALUES (10, 39);
 INSERT INTO `product_image` VALUES (10, 40);
-INSERT INTO `product_image` VALUES (10, 410);
 INSERT INTO `product_image` VALUES (11, 41);
 INSERT INTO `product_image` VALUES (11, 42);
 INSERT INTO `product_image` VALUES (11, 43);
 INSERT INTO `product_image` VALUES (11, 44);
-INSERT INTO `product_image` VALUES (11, 411);
 INSERT INTO `product_image` VALUES (12, 45);
 INSERT INTO `product_image` VALUES (12, 46);
 INSERT INTO `product_image` VALUES (12, 47);
 INSERT INTO `product_image` VALUES (12, 48);
-INSERT INTO `product_image` VALUES (12, 412);
 INSERT INTO `product_image` VALUES (13, 49);
 INSERT INTO `product_image` VALUES (13, 50);
 INSERT INTO `product_image` VALUES (13, 51);
 INSERT INTO `product_image` VALUES (13, 52);
-INSERT INTO `product_image` VALUES (13, 413);
 INSERT INTO `product_image` VALUES (14, 53);
 INSERT INTO `product_image` VALUES (14, 54);
 INSERT INTO `product_image` VALUES (14, 55);
 INSERT INTO `product_image` VALUES (14, 56);
-INSERT INTO `product_image` VALUES (14, 414);
 INSERT INTO `product_image` VALUES (15, 57);
 INSERT INTO `product_image` VALUES (15, 58);
 INSERT INTO `product_image` VALUES (15, 59);
 INSERT INTO `product_image` VALUES (15, 60);
-INSERT INTO `product_image` VALUES (15, 415);
 INSERT INTO `product_image` VALUES (16, 61);
 INSERT INTO `product_image` VALUES (16, 62);
 INSERT INTO `product_image` VALUES (16, 63);
 INSERT INTO `product_image` VALUES (16, 64);
-INSERT INTO `product_image` VALUES (16, 416);
 INSERT INTO `product_image` VALUES (17, 65);
 INSERT INTO `product_image` VALUES (17, 66);
 INSERT INTO `product_image` VALUES (17, 67);
 INSERT INTO `product_image` VALUES (17, 68);
-INSERT INTO `product_image` VALUES (17, 417);
 INSERT INTO `product_image` VALUES (18, 69);
 INSERT INTO `product_image` VALUES (18, 70);
 INSERT INTO `product_image` VALUES (18, 71);
 INSERT INTO `product_image` VALUES (18, 72);
-INSERT INTO `product_image` VALUES (18, 418);
 INSERT INTO `product_image` VALUES (19, 73);
 INSERT INTO `product_image` VALUES (19, 74);
 INSERT INTO `product_image` VALUES (19, 75);
 INSERT INTO `product_image` VALUES (19, 76);
-INSERT INTO `product_image` VALUES (19, 419);
 INSERT INTO `product_image` VALUES (20, 77);
 INSERT INTO `product_image` VALUES (20, 78);
 INSERT INTO `product_image` VALUES (20, 79);
 INSERT INTO `product_image` VALUES (20, 80);
-INSERT INTO `product_image` VALUES (20, 420);
 INSERT INTO `product_image` VALUES (21, 81);
 INSERT INTO `product_image` VALUES (21, 82);
 INSERT INTO `product_image` VALUES (21, 83);
 INSERT INTO `product_image` VALUES (21, 84);
-INSERT INTO `product_image` VALUES (21, 421);
 INSERT INTO `product_image` VALUES (22, 85);
 INSERT INTO `product_image` VALUES (22, 86);
 INSERT INTO `product_image` VALUES (22, 87);
 INSERT INTO `product_image` VALUES (22, 88);
-INSERT INTO `product_image` VALUES (22, 422);
 INSERT INTO `product_image` VALUES (23, 89);
 INSERT INTO `product_image` VALUES (23, 90);
 INSERT INTO `product_image` VALUES (23, 91);
 INSERT INTO `product_image` VALUES (23, 92);
-INSERT INTO `product_image` VALUES (23, 423);
 INSERT INTO `product_image` VALUES (24, 93);
 INSERT INTO `product_image` VALUES (24, 94);
 INSERT INTO `product_image` VALUES (24, 95);
 INSERT INTO `product_image` VALUES (24, 96);
-INSERT INTO `product_image` VALUES (24, 424);
 INSERT INTO `product_image` VALUES (25, 97);
 INSERT INTO `product_image` VALUES (25, 98);
 INSERT INTO `product_image` VALUES (25, 99);
 INSERT INTO `product_image` VALUES (25, 100);
-INSERT INTO `product_image` VALUES (25, 425);
 INSERT INTO `product_image` VALUES (26, 101);
 INSERT INTO `product_image` VALUES (26, 102);
 INSERT INTO `product_image` VALUES (26, 103);
 INSERT INTO `product_image` VALUES (26, 104);
-INSERT INTO `product_image` VALUES (26, 426);
 INSERT INTO `product_image` VALUES (27, 105);
 INSERT INTO `product_image` VALUES (27, 106);
 INSERT INTO `product_image` VALUES (27, 107);
 INSERT INTO `product_image` VALUES (27, 108);
-INSERT INTO `product_image` VALUES (27, 427);
 INSERT INTO `product_image` VALUES (28, 109);
 INSERT INTO `product_image` VALUES (28, 110);
 INSERT INTO `product_image` VALUES (28, 111);
 INSERT INTO `product_image` VALUES (28, 112);
-INSERT INTO `product_image` VALUES (28, 428);
 INSERT INTO `product_image` VALUES (29, 113);
 INSERT INTO `product_image` VALUES (29, 114);
 INSERT INTO `product_image` VALUES (29, 115);
 INSERT INTO `product_image` VALUES (29, 116);
-INSERT INTO `product_image` VALUES (29, 429);
 INSERT INTO `product_image` VALUES (30, 117);
 INSERT INTO `product_image` VALUES (30, 118);
 INSERT INTO `product_image` VALUES (30, 119);
 INSERT INTO `product_image` VALUES (30, 120);
-INSERT INTO `product_image` VALUES (30, 430);
 INSERT INTO `product_image` VALUES (31, 121);
 INSERT INTO `product_image` VALUES (31, 122);
 INSERT INTO `product_image` VALUES (31, 123);
 INSERT INTO `product_image` VALUES (31, 124);
-INSERT INTO `product_image` VALUES (31, 431);
 INSERT INTO `product_image` VALUES (32, 125);
 INSERT INTO `product_image` VALUES (32, 126);
 INSERT INTO `product_image` VALUES (32, 127);
 INSERT INTO `product_image` VALUES (32, 128);
-INSERT INTO `product_image` VALUES (32, 432);
 INSERT INTO `product_image` VALUES (33, 129);
 INSERT INTO `product_image` VALUES (33, 130);
 INSERT INTO `product_image` VALUES (33, 131);
 INSERT INTO `product_image` VALUES (33, 132);
-INSERT INTO `product_image` VALUES (33, 433);
 INSERT INTO `product_image` VALUES (34, 133);
 INSERT INTO `product_image` VALUES (34, 134);
 INSERT INTO `product_image` VALUES (34, 135);
 INSERT INTO `product_image` VALUES (34, 136);
-INSERT INTO `product_image` VALUES (34, 434);
 INSERT INTO `product_image` VALUES (35, 137);
 INSERT INTO `product_image` VALUES (35, 138);
 INSERT INTO `product_image` VALUES (35, 139);
 INSERT INTO `product_image` VALUES (35, 140);
-INSERT INTO `product_image` VALUES (35, 435);
 INSERT INTO `product_image` VALUES (36, 141);
 INSERT INTO `product_image` VALUES (36, 142);
 INSERT INTO `product_image` VALUES (36, 143);
 INSERT INTO `product_image` VALUES (36, 144);
-INSERT INTO `product_image` VALUES (36, 436);
 INSERT INTO `product_image` VALUES (37, 145);
 INSERT INTO `product_image` VALUES (37, 146);
 INSERT INTO `product_image` VALUES (37, 147);
 INSERT INTO `product_image` VALUES (37, 148);
-INSERT INTO `product_image` VALUES (37, 437);
 INSERT INTO `product_image` VALUES (38, 149);
 INSERT INTO `product_image` VALUES (38, 150);
 INSERT INTO `product_image` VALUES (38, 151);
 INSERT INTO `product_image` VALUES (38, 152);
-INSERT INTO `product_image` VALUES (38, 438);
 INSERT INTO `product_image` VALUES (39, 153);
 INSERT INTO `product_image` VALUES (39, 154);
 INSERT INTO `product_image` VALUES (39, 155);
 INSERT INTO `product_image` VALUES (39, 156);
-INSERT INTO `product_image` VALUES (39, 439);
 INSERT INTO `product_image` VALUES (40, 157);
 INSERT INTO `product_image` VALUES (40, 158);
 INSERT INTO `product_image` VALUES (40, 159);
 INSERT INTO `product_image` VALUES (40, 160);
-INSERT INTO `product_image` VALUES (40, 440);
 INSERT INTO `product_image` VALUES (41, 161);
 INSERT INTO `product_image` VALUES (41, 162);
 INSERT INTO `product_image` VALUES (41, 163);
 INSERT INTO `product_image` VALUES (41, 164);
-INSERT INTO `product_image` VALUES (41, 441);
 INSERT INTO `product_image` VALUES (42, 165);
 INSERT INTO `product_image` VALUES (42, 166);
 INSERT INTO `product_image` VALUES (42, 167);
 INSERT INTO `product_image` VALUES (42, 168);
-INSERT INTO `product_image` VALUES (42, 442);
 INSERT INTO `product_image` VALUES (43, 169);
 INSERT INTO `product_image` VALUES (43, 170);
 INSERT INTO `product_image` VALUES (43, 171);
 INSERT INTO `product_image` VALUES (43, 172);
-INSERT INTO `product_image` VALUES (43, 443);
 INSERT INTO `product_image` VALUES (44, 173);
 INSERT INTO `product_image` VALUES (44, 174);
 INSERT INTO `product_image` VALUES (44, 175);
 INSERT INTO `product_image` VALUES (44, 176);
-INSERT INTO `product_image` VALUES (44, 444);
 INSERT INTO `product_image` VALUES (45, 177);
 INSERT INTO `product_image` VALUES (45, 178);
 INSERT INTO `product_image` VALUES (45, 179);
 INSERT INTO `product_image` VALUES (45, 180);
-INSERT INTO `product_image` VALUES (45, 445);
 INSERT INTO `product_image` VALUES (46, 181);
 INSERT INTO `product_image` VALUES (46, 182);
 INSERT INTO `product_image` VALUES (46, 183);
 INSERT INTO `product_image` VALUES (46, 184);
-INSERT INTO `product_image` VALUES (46, 446);
 INSERT INTO `product_image` VALUES (47, 185);
 INSERT INTO `product_image` VALUES (47, 186);
 INSERT INTO `product_image` VALUES (47, 187);
 INSERT INTO `product_image` VALUES (47, 188);
-INSERT INTO `product_image` VALUES (47, 447);
 INSERT INTO `product_image` VALUES (48, 189);
 INSERT INTO `product_image` VALUES (48, 190);
 INSERT INTO `product_image` VALUES (48, 191);
 INSERT INTO `product_image` VALUES (48, 192);
-INSERT INTO `product_image` VALUES (48, 448);
 INSERT INTO `product_image` VALUES (49, 193);
 INSERT INTO `product_image` VALUES (49, 194);
 INSERT INTO `product_image` VALUES (49, 195);
 INSERT INTO `product_image` VALUES (49, 196);
-INSERT INTO `product_image` VALUES (49, 449);
 INSERT INTO `product_image` VALUES (50, 197);
 INSERT INTO `product_image` VALUES (50, 198);
 INSERT INTO `product_image` VALUES (50, 199);
 INSERT INTO `product_image` VALUES (50, 200);
-INSERT INTO `product_image` VALUES (50, 450);
 INSERT INTO `product_image` VALUES (51, 201);
 INSERT INTO `product_image` VALUES (51, 202);
 INSERT INTO `product_image` VALUES (51, 203);
 INSERT INTO `product_image` VALUES (51, 204);
-INSERT INTO `product_image` VALUES (51, 451);
 INSERT INTO `product_image` VALUES (52, 205);
 INSERT INTO `product_image` VALUES (52, 206);
 INSERT INTO `product_image` VALUES (52, 207);
 INSERT INTO `product_image` VALUES (52, 208);
-INSERT INTO `product_image` VALUES (52, 452);
 INSERT INTO `product_image` VALUES (53, 209);
 INSERT INTO `product_image` VALUES (53, 210);
 INSERT INTO `product_image` VALUES (53, 211);
 INSERT INTO `product_image` VALUES (53, 212);
-INSERT INTO `product_image` VALUES (53, 453);
 INSERT INTO `product_image` VALUES (54, 213);
 INSERT INTO `product_image` VALUES (54, 214);
 INSERT INTO `product_image` VALUES (54, 215);
 INSERT INTO `product_image` VALUES (54, 216);
-INSERT INTO `product_image` VALUES (54, 454);
 INSERT INTO `product_image` VALUES (55, 217);
 INSERT INTO `product_image` VALUES (55, 218);
 INSERT INTO `product_image` VALUES (55, 219);
 INSERT INTO `product_image` VALUES (55, 220);
-INSERT INTO `product_image` VALUES (55, 455);
 INSERT INTO `product_image` VALUES (56, 221);
 INSERT INTO `product_image` VALUES (56, 222);
 INSERT INTO `product_image` VALUES (56, 223);
 INSERT INTO `product_image` VALUES (56, 224);
-INSERT INTO `product_image` VALUES (56, 456);
 INSERT INTO `product_image` VALUES (57, 225);
 INSERT INTO `product_image` VALUES (57, 226);
 INSERT INTO `product_image` VALUES (57, 227);
 INSERT INTO `product_image` VALUES (57, 228);
-INSERT INTO `product_image` VALUES (57, 457);
 INSERT INTO `product_image` VALUES (58, 229);
 INSERT INTO `product_image` VALUES (58, 230);
 INSERT INTO `product_image` VALUES (58, 231);
 INSERT INTO `product_image` VALUES (58, 232);
-INSERT INTO `product_image` VALUES (58, 458);
 INSERT INTO `product_image` VALUES (59, 233);
 INSERT INTO `product_image` VALUES (59, 234);
 INSERT INTO `product_image` VALUES (59, 235);
 INSERT INTO `product_image` VALUES (59, 236);
-INSERT INTO `product_image` VALUES (59, 459);
 INSERT INTO `product_image` VALUES (60, 237);
 INSERT INTO `product_image` VALUES (60, 238);
 INSERT INTO `product_image` VALUES (60, 239);
 INSERT INTO `product_image` VALUES (60, 240);
-INSERT INTO `product_image` VALUES (60, 460);
 INSERT INTO `product_image` VALUES (61, 241);
 INSERT INTO `product_image` VALUES (61, 242);
 INSERT INTO `product_image` VALUES (61, 243);
 INSERT INTO `product_image` VALUES (61, 244);
-INSERT INTO `product_image` VALUES (61, 461);
 INSERT INTO `product_image` VALUES (62, 245);
 INSERT INTO `product_image` VALUES (62, 246);
 INSERT INTO `product_image` VALUES (62, 247);
 INSERT INTO `product_image` VALUES (62, 248);
-INSERT INTO `product_image` VALUES (62, 462);
 INSERT INTO `product_image` VALUES (63, 249);
 INSERT INTO `product_image` VALUES (63, 250);
 INSERT INTO `product_image` VALUES (63, 251);
 INSERT INTO `product_image` VALUES (63, 252);
-INSERT INTO `product_image` VALUES (63, 463);
 INSERT INTO `product_image` VALUES (64, 253);
 INSERT INTO `product_image` VALUES (64, 254);
 INSERT INTO `product_image` VALUES (64, 255);
 INSERT INTO `product_image` VALUES (64, 256);
-INSERT INTO `product_image` VALUES (64, 464);
 INSERT INTO `product_image` VALUES (65, 257);
 INSERT INTO `product_image` VALUES (65, 258);
 INSERT INTO `product_image` VALUES (65, 259);
 INSERT INTO `product_image` VALUES (65, 260);
-INSERT INTO `product_image` VALUES (65, 465);
 INSERT INTO `product_image` VALUES (66, 261);
 INSERT INTO `product_image` VALUES (66, 262);
 INSERT INTO `product_image` VALUES (66, 263);
 INSERT INTO `product_image` VALUES (66, 264);
-INSERT INTO `product_image` VALUES (66, 466);
 INSERT INTO `product_image` VALUES (67, 265);
 INSERT INTO `product_image` VALUES (67, 266);
 INSERT INTO `product_image` VALUES (67, 267);
 INSERT INTO `product_image` VALUES (67, 268);
-INSERT INTO `product_image` VALUES (67, 467);
 INSERT INTO `product_image` VALUES (68, 269);
 INSERT INTO `product_image` VALUES (68, 270);
 INSERT INTO `product_image` VALUES (68, 271);
 INSERT INTO `product_image` VALUES (68, 272);
-INSERT INTO `product_image` VALUES (68, 468);
 INSERT INTO `product_image` VALUES (69, 273);
 INSERT INTO `product_image` VALUES (69, 274);
 INSERT INTO `product_image` VALUES (69, 275);
 INSERT INTO `product_image` VALUES (69, 276);
-INSERT INTO `product_image` VALUES (69, 469);
 INSERT INTO `product_image` VALUES (70, 277);
 INSERT INTO `product_image` VALUES (70, 278);
 INSERT INTO `product_image` VALUES (70, 279);
 INSERT INTO `product_image` VALUES (70, 280);
-INSERT INTO `product_image` VALUES (70, 470);
 INSERT INTO `product_image` VALUES (71, 281);
 INSERT INTO `product_image` VALUES (71, 282);
 INSERT INTO `product_image` VALUES (71, 283);
 INSERT INTO `product_image` VALUES (71, 284);
-INSERT INTO `product_image` VALUES (71, 471);
 INSERT INTO `product_image` VALUES (72, 285);
 INSERT INTO `product_image` VALUES (72, 286);
 INSERT INTO `product_image` VALUES (72, 287);
 INSERT INTO `product_image` VALUES (72, 288);
-INSERT INTO `product_image` VALUES (72, 472);
 INSERT INTO `product_image` VALUES (73, 289);
 INSERT INTO `product_image` VALUES (73, 290);
 INSERT INTO `product_image` VALUES (73, 291);
 INSERT INTO `product_image` VALUES (73, 292);
-INSERT INTO `product_image` VALUES (73, 473);
 INSERT INTO `product_image` VALUES (74, 293);
 INSERT INTO `product_image` VALUES (74, 294);
 INSERT INTO `product_image` VALUES (74, 295);
 INSERT INTO `product_image` VALUES (74, 296);
-INSERT INTO `product_image` VALUES (74, 474);
 INSERT INTO `product_image` VALUES (75, 297);
 INSERT INTO `product_image` VALUES (75, 298);
 INSERT INTO `product_image` VALUES (75, 299);
 INSERT INTO `product_image` VALUES (75, 300);
-INSERT INTO `product_image` VALUES (75, 475);
 INSERT INTO `product_image` VALUES (76, 301);
 INSERT INTO `product_image` VALUES (76, 302);
 INSERT INTO `product_image` VALUES (76, 303);
 INSERT INTO `product_image` VALUES (76, 304);
-INSERT INTO `product_image` VALUES (76, 476);
 INSERT INTO `product_image` VALUES (77, 305);
 INSERT INTO `product_image` VALUES (77, 306);
 INSERT INTO `product_image` VALUES (77, 307);
 INSERT INTO `product_image` VALUES (77, 308);
-INSERT INTO `product_image` VALUES (77, 477);
 INSERT INTO `product_image` VALUES (78, 309);
 INSERT INTO `product_image` VALUES (78, 310);
 INSERT INTO `product_image` VALUES (78, 311);
 INSERT INTO `product_image` VALUES (78, 312);
-INSERT INTO `product_image` VALUES (78, 478);
 INSERT INTO `product_image` VALUES (79, 313);
 INSERT INTO `product_image` VALUES (79, 314);
 INSERT INTO `product_image` VALUES (79, 315);
 INSERT INTO `product_image` VALUES (79, 316);
-INSERT INTO `product_image` VALUES (79, 479);
 INSERT INTO `product_image` VALUES (80, 317);
 INSERT INTO `product_image` VALUES (80, 318);
 INSERT INTO `product_image` VALUES (80, 319);
 INSERT INTO `product_image` VALUES (80, 320);
-INSERT INTO `product_image` VALUES (80, 480);
 INSERT INTO `product_image` VALUES (81, 321);
 INSERT INTO `product_image` VALUES (81, 322);
 INSERT INTO `product_image` VALUES (81, 323);
 INSERT INTO `product_image` VALUES (81, 324);
-INSERT INTO `product_image` VALUES (81, 481);
 INSERT INTO `product_image` VALUES (82, 325);
 INSERT INTO `product_image` VALUES (82, 326);
 INSERT INTO `product_image` VALUES (82, 327);
 INSERT INTO `product_image` VALUES (82, 328);
-INSERT INTO `product_image` VALUES (82, 482);
 INSERT INTO `product_image` VALUES (83, 329);
 INSERT INTO `product_image` VALUES (83, 330);
 INSERT INTO `product_image` VALUES (83, 331);
 INSERT INTO `product_image` VALUES (83, 332);
-INSERT INTO `product_image` VALUES (83, 483);
 INSERT INTO `product_image` VALUES (84, 333);
 INSERT INTO `product_image` VALUES (84, 334);
 INSERT INTO `product_image` VALUES (84, 335);
 INSERT INTO `product_image` VALUES (84, 336);
-INSERT INTO `product_image` VALUES (84, 484);
 INSERT INTO `product_image` VALUES (85, 337);
 INSERT INTO `product_image` VALUES (85, 338);
 INSERT INTO `product_image` VALUES (85, 339);
 INSERT INTO `product_image` VALUES (85, 340);
-INSERT INTO `product_image` VALUES (85, 485);
 INSERT INTO `product_image` VALUES (86, 341);
 INSERT INTO `product_image` VALUES (86, 342);
 INSERT INTO `product_image` VALUES (86, 343);
 INSERT INTO `product_image` VALUES (86, 344);
-INSERT INTO `product_image` VALUES (86, 486);
 INSERT INTO `product_image` VALUES (87, 345);
 INSERT INTO `product_image` VALUES (87, 346);
 INSERT INTO `product_image` VALUES (87, 347);
 INSERT INTO `product_image` VALUES (87, 348);
-INSERT INTO `product_image` VALUES (87, 487);
 INSERT INTO `product_image` VALUES (88, 349);
 INSERT INTO `product_image` VALUES (88, 350);
 INSERT INTO `product_image` VALUES (88, 351);
 INSERT INTO `product_image` VALUES (88, 352);
-INSERT INTO `product_image` VALUES (88, 488);
 INSERT INTO `product_image` VALUES (89, 353);
 INSERT INTO `product_image` VALUES (89, 354);
 INSERT INTO `product_image` VALUES (89, 355);
 INSERT INTO `product_image` VALUES (89, 356);
-INSERT INTO `product_image` VALUES (89, 489);
 INSERT INTO `product_image` VALUES (90, 357);
 INSERT INTO `product_image` VALUES (90, 358);
 INSERT INTO `product_image` VALUES (90, 359);
 INSERT INTO `product_image` VALUES (90, 360);
-INSERT INTO `product_image` VALUES (90, 490);
 INSERT INTO `product_image` VALUES (91, 361);
 INSERT INTO `product_image` VALUES (91, 362);
 INSERT INTO `product_image` VALUES (91, 363);
 INSERT INTO `product_image` VALUES (91, 364);
-INSERT INTO `product_image` VALUES (91, 491);
 INSERT INTO `product_image` VALUES (92, 365);
 INSERT INTO `product_image` VALUES (92, 366);
 INSERT INTO `product_image` VALUES (92, 367);
 INSERT INTO `product_image` VALUES (92, 368);
-INSERT INTO `product_image` VALUES (92, 492);
 INSERT INTO `product_image` VALUES (93, 369);
 INSERT INTO `product_image` VALUES (93, 370);
 INSERT INTO `product_image` VALUES (93, 371);
 INSERT INTO `product_image` VALUES (93, 372);
-INSERT INTO `product_image` VALUES (93, 493);
 INSERT INTO `product_image` VALUES (94, 373);
 INSERT INTO `product_image` VALUES (94, 374);
 INSERT INTO `product_image` VALUES (94, 375);
 INSERT INTO `product_image` VALUES (94, 376);
-INSERT INTO `product_image` VALUES (94, 494);
 INSERT INTO `product_image` VALUES (95, 377);
 INSERT INTO `product_image` VALUES (95, 378);
 INSERT INTO `product_image` VALUES (95, 379);
 INSERT INTO `product_image` VALUES (95, 380);
-INSERT INTO `product_image` VALUES (95, 495);
 INSERT INTO `product_image` VALUES (96, 381);
 INSERT INTO `product_image` VALUES (96, 382);
 INSERT INTO `product_image` VALUES (96, 383);
 INSERT INTO `product_image` VALUES (96, 384);
-INSERT INTO `product_image` VALUES (96, 496);
 INSERT INTO `product_image` VALUES (97, 385);
 INSERT INTO `product_image` VALUES (97, 386);
 INSERT INTO `product_image` VALUES (97, 387);
 INSERT INTO `product_image` VALUES (97, 388);
-INSERT INTO `product_image` VALUES (97, 497);
 INSERT INTO `product_image` VALUES (98, 389);
 INSERT INTO `product_image` VALUES (98, 390);
 INSERT INTO `product_image` VALUES (98, 391);
 INSERT INTO `product_image` VALUES (98, 392);
-INSERT INTO `product_image` VALUES (98, 498);
 INSERT INTO `product_image` VALUES (99, 393);
 INSERT INTO `product_image` VALUES (99, 394);
 INSERT INTO `product_image` VALUES (99, 395);
 INSERT INTO `product_image` VALUES (99, 396);
-INSERT INTO `product_image` VALUES (99, 499);
 INSERT INTO `product_image` VALUES (100, 397);
 INSERT INTO `product_image` VALUES (100, 398);
 INSERT INTO `product_image` VALUES (100, 399);
 INSERT INTO `product_image` VALUES (100, 400);
+INSERT INTO `product_image` VALUES (1, 401);
+INSERT INTO `product_image` VALUES (2, 402);
+INSERT INTO `product_image` VALUES (3, 403);
+INSERT INTO `product_image` VALUES (4, 404);
+INSERT INTO `product_image` VALUES (5, 405);
+INSERT INTO `product_image` VALUES (6, 406);
+INSERT INTO `product_image` VALUES (7, 407);
+INSERT INTO `product_image` VALUES (8, 408);
+INSERT INTO `product_image` VALUES (9, 409);
+INSERT INTO `product_image` VALUES (10, 410);
+INSERT INTO `product_image` VALUES (11, 411);
+INSERT INTO `product_image` VALUES (12, 412);
+INSERT INTO `product_image` VALUES (13, 413);
+INSERT INTO `product_image` VALUES (14, 414);
+INSERT INTO `product_image` VALUES (15, 415);
+INSERT INTO `product_image` VALUES (16, 416);
+INSERT INTO `product_image` VALUES (17, 417);
+INSERT INTO `product_image` VALUES (18, 418);
+INSERT INTO `product_image` VALUES (19, 419);
+INSERT INTO `product_image` VALUES (20, 420);
+INSERT INTO `product_image` VALUES (21, 421);
+INSERT INTO `product_image` VALUES (22, 422);
+INSERT INTO `product_image` VALUES (23, 423);
+INSERT INTO `product_image` VALUES (24, 424);
+INSERT INTO `product_image` VALUES (25, 425);
+INSERT INTO `product_image` VALUES (26, 426);
+INSERT INTO `product_image` VALUES (27, 427);
+INSERT INTO `product_image` VALUES (28, 428);
+INSERT INTO `product_image` VALUES (29, 429);
+INSERT INTO `product_image` VALUES (30, 430);
+INSERT INTO `product_image` VALUES (31, 431);
+INSERT INTO `product_image` VALUES (32, 432);
+INSERT INTO `product_image` VALUES (33, 433);
+INSERT INTO `product_image` VALUES (34, 434);
+INSERT INTO `product_image` VALUES (35, 435);
+INSERT INTO `product_image` VALUES (36, 436);
+INSERT INTO `product_image` VALUES (37, 437);
+INSERT INTO `product_image` VALUES (38, 438);
+INSERT INTO `product_image` VALUES (39, 439);
+INSERT INTO `product_image` VALUES (40, 440);
+INSERT INTO `product_image` VALUES (41, 441);
+INSERT INTO `product_image` VALUES (42, 442);
+INSERT INTO `product_image` VALUES (43, 443);
+INSERT INTO `product_image` VALUES (44, 444);
+INSERT INTO `product_image` VALUES (45, 445);
+INSERT INTO `product_image` VALUES (46, 446);
+INSERT INTO `product_image` VALUES (47, 447);
+INSERT INTO `product_image` VALUES (48, 448);
+INSERT INTO `product_image` VALUES (49, 449);
+INSERT INTO `product_image` VALUES (50, 450);
+INSERT INTO `product_image` VALUES (51, 451);
+INSERT INTO `product_image` VALUES (52, 452);
+INSERT INTO `product_image` VALUES (53, 453);
+INSERT INTO `product_image` VALUES (54, 454);
+INSERT INTO `product_image` VALUES (55, 455);
+INSERT INTO `product_image` VALUES (56, 456);
+INSERT INTO `product_image` VALUES (57, 457);
+INSERT INTO `product_image` VALUES (58, 458);
+INSERT INTO `product_image` VALUES (59, 459);
+INSERT INTO `product_image` VALUES (60, 460);
+INSERT INTO `product_image` VALUES (61, 461);
+INSERT INTO `product_image` VALUES (62, 462);
+INSERT INTO `product_image` VALUES (63, 463);
+INSERT INTO `product_image` VALUES (64, 464);
+INSERT INTO `product_image` VALUES (65, 465);
+INSERT INTO `product_image` VALUES (66, 466);
+INSERT INTO `product_image` VALUES (67, 467);
+INSERT INTO `product_image` VALUES (68, 468);
+INSERT INTO `product_image` VALUES (69, 469);
+INSERT INTO `product_image` VALUES (70, 470);
+INSERT INTO `product_image` VALUES (71, 471);
+INSERT INTO `product_image` VALUES (72, 472);
+INSERT INTO `product_image` VALUES (73, 473);
+INSERT INTO `product_image` VALUES (74, 474);
+INSERT INTO `product_image` VALUES (75, 475);
+INSERT INTO `product_image` VALUES (76, 476);
+INSERT INTO `product_image` VALUES (77, 477);
+INSERT INTO `product_image` VALUES (78, 478);
+INSERT INTO `product_image` VALUES (79, 479);
+INSERT INTO `product_image` VALUES (80, 480);
+INSERT INTO `product_image` VALUES (81, 481);
+INSERT INTO `product_image` VALUES (82, 482);
+INSERT INTO `product_image` VALUES (83, 483);
+INSERT INTO `product_image` VALUES (84, 484);
+INSERT INTO `product_image` VALUES (85, 485);
+INSERT INTO `product_image` VALUES (86, 486);
+INSERT INTO `product_image` VALUES (87, 487);
+INSERT INTO `product_image` VALUES (88, 488);
+INSERT INTO `product_image` VALUES (89, 489);
+INSERT INTO `product_image` VALUES (90, 490);
+INSERT INTO `product_image` VALUES (91, 491);
+INSERT INTO `product_image` VALUES (92, 492);
+INSERT INTO `product_image` VALUES (93, 493);
+INSERT INTO `product_image` VALUES (94, 494);
+INSERT INTO `product_image` VALUES (95, 495);
+INSERT INTO `product_image` VALUES (96, 496);
+INSERT INTO `product_image` VALUES (97, 497);
+INSERT INTO `product_image` VALUES (98, 498);
+INSERT INTO `product_image` VALUES (99, 499);
 INSERT INTO `product_image` VALUES (100, 500);
 
 -- ----------------------------
@@ -1652,7 +1652,7 @@ CREATE TABLE `product_import`  (
   INDEX `fk_product_import_import`(`import_id` ASC) USING BTREE,
   CONSTRAINT `fk_product_import_import` FOREIGN KEY (`import_id`) REFERENCES `import` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_product_import_product` FOREIGN KEY (`id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of product_import
@@ -1715,7 +1715,7 @@ CREATE TABLE `source`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of source
@@ -1727,10 +1727,10 @@ CREATE TABLE `source`  (
 DROP TABLE IF EXISTS `third_party`;
 CREATE TABLE `third_party`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `value` varchar(1000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL DEFAULT NULL,
+  `value` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of third_party
@@ -1748,7 +1748,7 @@ CREATE TABLE `transport`  (
   `id_shipping` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `create_date` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of transport
@@ -1781,7 +1781,7 @@ CREATE TABLE `user`  (
   INDEX `fk_user_third_party`(`id_third_party` ASC) USING BTREE,
   CONSTRAINT `fk_avatar_image` FOREIGN KEY (`avatar`) REFERENCES `image` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_user_third_party` FOREIGN KEY (`id_third_party`) REFERENCES `third_party` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user
@@ -1793,6 +1793,7 @@ INSERT INTO `user` VALUES (4, 'Lê Bảo Đặng', '0999999999', '20130010@st.hc
 INSERT INTO `user` VALUES (5, 'Xuân Hoa', '0819541222', 'qinhuuuuu@gmail.com', 501, '851aeae07e83ff0ac3ae4cbf204e58d7f7c3cbd5d83554f5843e8ba7d5d7b090', 1, 0, 0);
 INSERT INTO `user` VALUES (6, 'Gia Bảo', '888888881', 'quynhnhuuww22@gmail.com', 501, '573e6b939dde87164c18eb5092ba3291c801a2bbb0d177128ab8a7d5e238000d', 1, 0, 0);
 INSERT INTO `user` VALUES (7, 'Hồ An', '0146598444', 'thphung2@gmail.com', 501, '1833b312305b6510a8a142b3759711be882aacf2397525434206916f778ba955', 1, 0, 0);
+INSERT INTO `user` VALUES (9, 'givaybao', '0123456789', 'kanatovn02@gmail.com', NULL, '8c65b9f5b3790fe6b4e1b72d6ec5aee1d27f8162c8ef3fe48748b38562bd1bed', NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for user_information
@@ -1820,14 +1821,14 @@ INSERT INTO `user_information` VALUES (2, 15);
 DROP TABLE IF EXISTS `vendor`;
 CREATE TABLE `vendor`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `information_id` int NOT NULL,
-  `website` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `website` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL DEFAULT NULL,
   `status` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_vendor_infomation`(`information_id` ASC) USING BTREE,
   CONSTRAINT `fk_vendor_infomation` FOREIGN KEY (`information_id`) REFERENCES `information` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of vendor

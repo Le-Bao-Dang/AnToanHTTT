@@ -14,21 +14,21 @@ public class Cart extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("auth");
-        Log log = new Log();
+//        Log log = new Log();
         if (user != null) {
             request.getRequestDispatcher("cart.jsp").forward(request, response);
-            log.setEvent("/cart");
-            log.setSeverityLevel(Log.INFO);
-            log.setDescription("Truy cập giỏ hàng thành công");
-            log.setUser(user);
+//            log.setEvent("/cart");
+//            log.setSeverityLevel(Log.INFO);
+//            log.setDescription("Truy cập giỏ hàng thành công");
+//            log.setUser(user);
         } else {
             response.sendRedirect("/doLogin");
-            log.setEvent("/cart");
-            log.setSeverityLevel(Log.INFO);
-            log.setDescription("Truy cập giỏ hàng không thành công, người dùng chưa đăng nhập.");
+//            log.setEvent("/cart");
+//            log.setSeverityLevel(Log.INFO);
+//            log.setDescription("Truy cập giỏ hàng không thành công, người dùng chưa đăng nhập.");
         }
 
-        LogService.getInstance().insert(log);
+//        LogService.getInstance().insert(log);
     }
 
     @Override
