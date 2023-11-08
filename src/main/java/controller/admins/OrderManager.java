@@ -33,12 +33,12 @@ public class OrderManager extends HttpServlet {
         request.setAttribute("name", name);
         request.setAttribute("member", member);
         request.getRequestDispatcher("admin.jsp").forward(request, response);
-        Log log = new Log();
-        log.setEvent("/searches");
-        log.setDescription("Truy cập trang \"" + name + " \"");
-        log.setSeverityLevel(Log.INFO);
-        log.setUser(user);
-        LogService.getInstance().insert(log);
+//        Log log = new Log();
+//        log.setEvent("/searches");
+//        log.setDescription("Truy cập trang \"" + name + " \"");
+//        log.setSeverityLevel(Log.INFO);
+//        log.setUser(user);
+//        LogService.getInstance().insert(log);
 
     }
 

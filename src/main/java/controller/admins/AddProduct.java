@@ -40,14 +40,14 @@ public class AddProduct extends HttpServlet {
         System.out.println("đã thêm");
 //        response.sendRedirect("/admins/uploadImageProduct");
 
-        Log log = new Log();
-        log.setEvent("/admins/addProduct");
-        log.setDescription("Thêm sản phẩm mới \" "+name+" \"");
-        log.setSeverityLevel(Log.INFO);
-        if (user != null) {
-            log.setUser(user);
-        }
-        LogService.getInstance().insert(log);
+//        Log log = new Log();
+//        log.setEvent("/admins/addProduct");
+//        log.setDescription("Thêm sản phẩm mới \" "+name+" \"");
+//        log.setSeverityLevel(Log.INFO);
+//        if (user != null) {
+//            log.setUser(user);
+//        }
+//        LogService.getInstance().insert(log);
 
     }
 

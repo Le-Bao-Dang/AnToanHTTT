@@ -24,20 +24,20 @@ public class UpComment extends HttpServlet {
         int rate = Integer.parseInt(request.getParameter("rate"));
         Product product = ProductService.getInstance().getProductById(idProduct);
 
-        Log log = new Log();
-        log.setEvent("/detailProduct/upComment");
-
-        if (user == null) {
-            response.getWriter().println(0);
-            log.setSeverityLevel(Log.INFO);
-            log.setDescription("Bình luận sản phẩm \"" + product.getName() + "\" không thành công, người dùng chưa đăng nhập!");
-            LogService.getInstance().insert(log);
-            return;
-        }
-        log.setSeverityLevel(Log.INFO);
-        log.setDescription("Bình luận sản phẩm \"" + product.getName() + "\" thành công. Nội dung \"" + text + "\"");
-        log.setUser(user);
-        LogService.getInstance().insert(log);
+//        Log log = new Log();
+//        log.setEvent("/detailProduct/upComment");
+//
+//        if (user == null) {
+//            response.getWriter().println(0);
+//            log.setSeverityLevel(Log.INFO);
+//            log.setDescription("Bình luận sản phẩm \"" + product.getName() + "\" không thành công, người dùng chưa đăng nhập!");
+//            LogService.getInstance().insert(log);
+//            return;
+//        }
+//        log.setSeverityLevel(Log.INFO);
+//        log.setDescription("Bình luận sản phẩm \"" + product.getName() + "\" thành công. Nội dung \"" + text + "\"");
+//        log.setUser(user);
+//        LogService.getInstance().insert(log);
 
         LocalDateTime now = LocalDateTime.now();
 
