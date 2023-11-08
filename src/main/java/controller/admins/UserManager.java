@@ -24,12 +24,12 @@ public class UserManager extends HttpServlet {
         request.setAttribute("listUser", list);
         request.setAttribute("name", name);
         request.getRequestDispatcher("user-manager.jsp").forward(request, response);
-        Log log = new Log();
-        log.setEvent("/searches");
-        log.setDescription("Truy cập trang \"" + name + " \"");
-        log.setSeverityLevel(Log.INFO);
-        log.setUser(user);
-        LogService.getInstance().insert(log);
+//        Log log = new Log();
+//        log.setEvent("/searches");
+//        log.setDescription("Truy cập trang \"" + name + " \"");
+//        log.setSeverityLevel(Log.INFO);
+//        log.setUser(user);
+//        LogService.getInstance().insert(log);
     }
 
     @Override
