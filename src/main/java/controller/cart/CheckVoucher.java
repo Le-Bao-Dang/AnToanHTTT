@@ -44,12 +44,12 @@ public class CheckVoucher extends HttpServlet {
             response.getWriter().println(Cart.total(user.getListCartItem(), discount.getValue()));
         }
 
-        Log log = new Log();
-        log.setEvent("/cart/checkVoucher");
-        log.setDescription("Nhập mã giảm giá \"" + discountCode + "\". " + message);
-        log.setUser(user);
-        log.setSeverityLevel(Log.INFO);
-        LogService.getInstance().insert(log);
+//        Log log = new Log();
+//        log.setEvent("/cart/checkVoucher");
+//        log.setDescription("Nhập mã giảm giá \"" + discountCode + "\". " + message);
+//        log.setUser(user);
+//        log.setSeverityLevel(Log.INFO);
+//        LogService.getInstance().insert(log);
     }
 
     @Override

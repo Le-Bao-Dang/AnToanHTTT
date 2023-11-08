@@ -40,14 +40,14 @@ public class Searches extends HttpServlet {
         request.getRequestDispatcher("list-product.jsp").forward(request, response);
 //        response.sendRedirect("");
 
-        Log log = new Log();
-        log.setEvent("/searches");
-        log.setDescription("Tìm kiếm sản phẩm có từ khóa \"" + search + "\"");
-        log.setSeverityLevel(Log.INFO);
-        if (user != null) {
-            log.setUser(user);
-        }
-        LogService.getInstance().insert(log);
+//        Log log = new Log();
+//        log.setEvent("/searches");
+//        log.setDescription("Tìm kiếm sản phẩm có từ khóa \"" + search + "\"");
+//        log.setSeverityLevel(Log.INFO);
+//        if (user != null) {
+//            log.setUser(user);
+//        }
+//        LogService.getInstance().insert(log);
     }
 
     @Override

@@ -41,12 +41,12 @@ public class ProductManager extends HttpServlet {
 //        request.setAttribute("picture",picture);
         request.getRequestDispatcher("product-manager.jsp").forward(request, response);
 
-        Log log = new Log();
-        log.setEvent("/ProductManager");
-        log.setDescription("Truy cập trang \"" + name + " \"");
-        log.setSeverityLevel(Log.INFO);
-        log.setUser(user);
-        LogService.getInstance().insert(log);
+//        Log log = new Log();
+//        log.setEvent("/ProductManager");
+//        log.setDescription("Truy cập trang \"" + name + " \"");
+//        log.setSeverityLevel(Log.INFO);
+//        log.setUser(user);
+//        LogService.getInstance().insert(log);
 
     }
 
