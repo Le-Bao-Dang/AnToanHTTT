@@ -19,8 +19,10 @@ public class AddOrder extends HttpServlet {
         int idInformation = Integer.parseInt(request.getParameter("idInformation"));
         String discountCode = request.getParameter("discountCode");
 
-        int shipFee = Integer.parseInt(request.getParameter("shipFee"));
+//        int shipFee = Integer.parseInt(request.getParameter("shipFee"));
         String shipDateStr = request.getParameter("shipDate");
+        int shipFee = 25000;
+//        String shipDateStr = "20/5/2023";
 
         LocalDateTime shipDate = LocalDateTime.parse(shipDateStr.substring(0, shipDateStr.length() - 1));
 
