@@ -9,8 +9,8 @@ import java.util.Properties;
 
 public class MailService {
     public static void sendMail(String from, String content, String send) {
-        final String username = "20130356@st.hcmuaf.edu.vn";
-        final String password = "ulnojephxsdbgtes";
+        final String username = "20130010@st.hcmuaf.edu.vn";
+        final String password = "lnuariqpmwocsadl";
 
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com");
@@ -29,7 +29,7 @@ public class MailService {
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("20130356@st.hcmuaf.edu.vn"));
+            message.setFrom(new InternetAddress("20130010@st.hcmuaf.edu.vn"));
             message.setRecipients(
                     Message.RecipientType.TO,
                     InternetAddress.parse(send)
@@ -46,6 +46,6 @@ public class MailService {
     }
 
     public static void main(String[] args) {
-        sendMail("hello", "tp la nguoi tuyet voi","qinhuuuuu@gmail.com");
+        sendMail("hello", "an toàn chưa","dangle01052002@gmail.com");
     }
 }
