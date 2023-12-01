@@ -36,10 +36,11 @@ public class IncorrectTimeService {
                     .bind(0, userId)
                     .mapTo(Integer.class).stream().collect(Collectors.toList());
             if (integers.size() == 0) {
-                return handle.createUpdate("insert into incorrect_time(user_id, incorrect_attempts, type, status) values(?,?,?,?)")
+                return handle.createUpdate("insert into incorrect_time(user_id, incorrect_attempts, type ,status) values(?,?,?,?)")
                         .bind(0, userId)
                         .bind(1, 1)
                         .bind(2, "password")
+
                         .bind(3, 0)
                         .execute();
             } else {

@@ -19,11 +19,10 @@ public class AddOrder extends HttpServlet {
         int idInformation = Integer.parseInt(request.getParameter("idInformation"));
         String discountCode = request.getParameter("discountCode");
 
-        int shipFee = Integer.parseInt(request.getParameter("shipFee"));
-        String shipDateStr = request.getParameter("shipDate");
-
-        LocalDateTime shipDate = LocalDateTime.parse(shipDateStr.substring(0, shipDateStr.length() - 1));
-
+        int shipFee = 10000;
+        LocalDateTime shipDate =  LocalDateTime.now();
+        LocalDateTime threeDaysLater = shipDate.plusDays(3);
+        LocalDateTime fiveDaysLater = threeDaysLater.plusDays(2);
         Transport transport = new Transport(shipFee, shipDate, "", LocalDateTime.now());
         int idTransport = TransportService.getInstance().add(transport);
         transport.setId(idTransport);
@@ -40,6 +39,8 @@ public class AddOrder extends HttpServlet {
         order.setListOrderItem(user.getListCartItem());
         order.setStatus(0);
         order.setUser(user);
+        order.setDeliveryDate(threeDaysLater);
+        order.setReceivingDate(fiveDaysLater);
 
         if (!"".equals(discountCode)) {
             Discount discount = DiscountService.getInstance().getDiscountByCode(discountCode);

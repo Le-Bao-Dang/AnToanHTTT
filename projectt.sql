@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 08/11/2023 14:23:11
+ Date: 01/12/2023 08:34:20
 */
 
 SET NAMES utf8mb4;
@@ -31,7 +31,7 @@ CREATE TABLE `cart_item`  (
   INDEX `fk_cart_item_user`(`user_id` ASC) USING BTREE,
   CONSTRAINT `fk_cart_item_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_cart_item_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 52 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of cart_item
@@ -53,7 +53,7 @@ CREATE TABLE `category`  (
   INDEX `pa_category`(`pa_category` ASC) USING BTREE,
   INDEX `id`(`id` ASC) USING BTREE,
   CONSTRAINT `fk_category_category` FOREIGN KEY (`pa_category`) REFERENCES `category` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of category
@@ -124,7 +124,7 @@ CREATE TABLE `discount_product`  (
   INDEX `fk_discount_product_product`(`product_id` ASC) USING BTREE,
   CONSTRAINT `fk_discount_product_discount` FOREIGN KEY (`discount_id`) REFERENCES `discount` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_discount_product_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of discount_product
@@ -158,7 +158,7 @@ CREATE TABLE `export`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_export_user`(`user_id` ASC) USING BTREE,
   CONSTRAINT `fk_export_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of export
@@ -195,7 +195,7 @@ CREATE TABLE `history_price`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_history_price_product`(`product_id` ASC) USING BTREE,
   CONSTRAINT `fk_history_price_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 103 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of history_price
@@ -309,7 +309,7 @@ CREATE TABLE `image`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `source` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 503 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 501 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of image
@@ -832,7 +832,7 @@ CREATE TABLE `import`  (
   INDEX `fk_user_import`(`user_import_id` ASC) USING BTREE,
   CONSTRAINT `fk_import_vendor` FOREIGN KEY (`vendor_id`) REFERENCES `vendor` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_user_import` FOREIGN KEY (`user_import_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of import
@@ -856,7 +856,7 @@ CREATE TABLE `incorrect_time`  (
   `user_id` int NOT NULL,
   `incorrect_attempts` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `locked_until` datetime NOT NULL,
+  `locked_until` datetime NULL DEFAULT NULL,
   `status` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_incorrect_times_user`(`user_id` ASC) USING BTREE,
@@ -906,7 +906,7 @@ CREATE TABLE `line_item`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_line_item_product`(`product_id` ASC) USING BTREE,
   CONSTRAINT `fk_line_item_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of line_item
@@ -932,7 +932,7 @@ CREATE TABLE `log`  (
   INDEX `fk_log_event`(`event_id` ASC) USING BTREE,
   CONSTRAINT `fk_log_event` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_log_source` FOREIGN KEY (`source_id`) REFERENCES `source` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of log
@@ -966,7 +966,7 @@ CREATE TABLE `order`  (
   CONSTRAINT `fk_order_infomation` FOREIGN KEY (`information_id`) REFERENCES `information` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_order_transport` FOREIGN KEY (`transport_id`) REFERENCES `transport` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of order
@@ -1016,7 +1016,7 @@ CREATE TABLE `product`  (
   INDEX `fk_product_user`(`user_add_id` ASC) USING BTREE,
   CONSTRAINT `fk_product_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_product_user` FOREIGN KEY (`user_add_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 111 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of product
@@ -1133,7 +1133,7 @@ CREATE TABLE `product_image`  (
   INDEX `fk_product_image_image`(`image_id` ASC) USING BTREE,
   CONSTRAINT `fk_product_image_image` FOREIGN KEY (`image_id`) REFERENCES `image` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_product_image_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 102 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of product_image
@@ -1689,7 +1689,7 @@ CREATE TABLE `review`  (
   INDEX `fk_review_product`(`product_id` ASC) USING BTREE,
   CONSTRAINT `fk_review_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_review_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of review
@@ -1730,7 +1730,7 @@ CREATE TABLE `third_party`  (
   `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL DEFAULT NULL,
   `value` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of third_party
@@ -1793,7 +1793,7 @@ INSERT INTO `user` VALUES (4, 'Lê Bảo Đặng', '0999999999', '20130010@st.hc
 INSERT INTO `user` VALUES (5, 'Xuân Hoa', '0819541222', 'qinhuuuuu@gmail.com', 501, '851aeae07e83ff0ac3ae4cbf204e58d7f7c3cbd5d83554f5843e8ba7d5d7b090', 1, 0, 0);
 INSERT INTO `user` VALUES (6, 'Gia Bảo', '888888881', 'quynhnhuuww22@gmail.com', 501, '573e6b939dde87164c18eb5092ba3291c801a2bbb0d177128ab8a7d5e238000d', 1, 0, 0);
 INSERT INTO `user` VALUES (7, 'Hồ An', '0146598444', 'thphung2@gmail.com', 501, '1833b312305b6510a8a142b3759711be882aacf2397525434206916f778ba955', 1, 0, 0);
-INSERT INTO `user` VALUES (9, 'givaybao', '0123456789', 'kanatovn02@gmail.com', NULL, '8c65b9f5b3790fe6b4e1b72d6ec5aee1d27f8162c8ef3fe48748b38562bd1bed', NULL, 0, 0);
+INSERT INTO `user` VALUES (11, 'Dam Thanh', '0123456789', 'kanatovn02@gmail.com', 501, '60166a3b3b252885e0c489b2da291048d8af0349326d23d96140b065f65f31f5', NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for user_information
