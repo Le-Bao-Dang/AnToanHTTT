@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 01/12/2023 09:44:00
+ Date: 01/12/2023 11:09:03
 */
 
 SET NAMES utf8mb4;
@@ -894,7 +894,6 @@ INSERT INTO `information` VALUES (15, 'Tuấn', '2352345', 'Xã Mê Linh', 'Huy�
 INSERT INTO `information` VALUES (18, 'Go Hoang Gia Anh', '0128878957', 'Phu Lam', 'Phu Tan', 'An Giang', 1, 1, '0', 0);
 INSERT INTO `information` VALUES (20, 'Xưởng mộc Nguyên', '059499569', '190/23, Lê Trọng Tấn', 'Tân Bình', 'HCM', 2, 14, '2132', 0);
 INSERT INTO `information` VALUES (21, 'Mộc Cao Gia', '099569698', 'xã An Hào', 'Tịnh Biên', 'An Giang', 67, 5456, '56646', 0);
-INSERT INTO `information` VALUES (23, 'dam', '0987506443', 'Phường Bình Chiểu', 'Quận Thủ Đức', 'Hồ Chí Minh', 202, 1463, '21801', 0);
 
 -- ----------------------------
 -- Table structure for keys
@@ -914,6 +913,7 @@ CREATE TABLE `keys`  (
 -- ----------------------------
 -- Records of keys
 -- ----------------------------
+INSERT INTO `keys` VALUES (1, 13, 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA42FIg9xZ1/pCqui8RUYryhwgUGbr/vV7vzcRn73koMLC5LzLOdjydVr0xBdvBoSUAl+q6mj0honQIIy7BKjV2HZ8WBRgEgsE1X0KwzqiWE4GRRvp74/SLDhiwi+9zReCoW12ejDdipitvSYeHJXtR8sr02gw241QERsqOhpsfUbPwPjLAsENehAkQrr1Ma3+BePcpmtO08AFSOPU21AcUw5w8tyQZMUs9hGnumef+AaF4XME09epu6SzQZcV7Q8sMyGOfE04xsMnbNs119jQB4+8vl+wIMzHIIOvVgHPri6C/tAI5pGH6TopoYxnRMzLk7pXvMoEyKhUtZgBQmqs6QIDAQAB', NULL, 0);
 
 -- ----------------------------
 -- Table structure for line_item
@@ -996,8 +996,6 @@ CREATE TABLE `order`  (
 INSERT INTO `order` VALUES (9, 'Giao buoi sang giup toi', 0, 3, 1, 0, NULL, NULL, b'0', '2023-05-03 14:43:22', 2, 15, '0', 1);
 INSERT INTO `order` VALUES (10, '', 3059909, 4, 1, 0, NULL, NULL, b'0', '2023-05-03 15:08:06', 2, 13, '0', 1);
 INSERT INTO `order` VALUES (15, '', 2655696, 10, 1, 0, NULL, NULL, b'0', '2023-05-03 15:30:35', 2, 14, '0', NULL);
-INSERT INTO `order` VALUES (16, '', 5565556, 11, 0, 0, NULL, NULL, b'0', '2023-12-01 08:38:58', 11, 23, '0', NULL);
-INSERT INTO `order` VALUES (17, '', 561000, 12, 0, 0, '2023-12-04 08:51:03', '2023-12-09 08:51:03', b'0', '2023-12-01 08:51:03', 11, 23, '0', NULL);
 
 -- ----------------------------
 -- Table structure for order_line
@@ -1020,8 +1018,24 @@ INSERT INTO `order_line` VALUES (10, 11);
 INSERT INTO `order_line` VALUES (10, 12);
 INSERT INTO `order_line` VALUES (15, 13);
 INSERT INTO `order_line` VALUES (15, 14);
-INSERT INTO `order_line` VALUES (16, 15);
-INSERT INTO `order_line` VALUES (17, 16);
+
+-- ----------------------------
+-- Table structure for order_signatures
+-- ----------------------------
+DROP TABLE IF EXISTS `order_signatures`;
+CREATE TABLE `order_signatures`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `order_id` int NOT NULL,
+  `signature_base64` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` int NULL DEFAULT 0,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `order_id`(`order_id` ASC) USING BTREE,
+  CONSTRAINT `order_signatures_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of order_signatures
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for product
@@ -1821,7 +1835,7 @@ INSERT INTO `user` VALUES (4, 'Lê Bảo Đặng', '0999999999', '20130010@st.hc
 INSERT INTO `user` VALUES (5, 'Xuân Hoa', '0819541222', 'qinhuuuuu@gmail.com', 501, '851aeae07e83ff0ac3ae4cbf204e58d7f7c3cbd5d83554f5843e8ba7d5d7b090', 1, 0, 0);
 INSERT INTO `user` VALUES (6, 'Gia Bảo', '888888881', 'quynhnhuuww22@gmail.com', 501, '573e6b939dde87164c18eb5092ba3291c801a2bbb0d177128ab8a7d5e238000d', 1, 0, 0);
 INSERT INTO `user` VALUES (7, 'Hồ An', '0146598444', 'thphung2@gmail.com', 501, '1833b312305b6510a8a142b3759711be882aacf2397525434206916f778ba955', 1, 0, 0);
-INSERT INTO `user` VALUES (11, 'Dam Thanh', '0123456789', 'kanatovn02@gmail.com', 501, '60166a3b3b252885e0c489b2da291048d8af0349326d23d96140b065f65f31f5', NULL, 0, 0);
+INSERT INTO `user` VALUES (13, 'Dam Thanh', '0123456789', 'kanatovn02@gmail.com', 501, '60166a3b3b252885e0c489b2da291048d8af0349326d23d96140b065f65f31f5', NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for user_information
@@ -1842,7 +1856,6 @@ CREATE TABLE `user_information`  (
 INSERT INTO `user_information` VALUES (2, 13);
 INSERT INTO `user_information` VALUES (2, 14);
 INSERT INTO `user_information` VALUES (2, 15);
-INSERT INTO `user_information` VALUES (11, 23);
 
 -- ----------------------------
 -- Table structure for vendor

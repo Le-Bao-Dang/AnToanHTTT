@@ -2,6 +2,7 @@ package controller;
 
 import bean.User;
 import services.MailService;
+import services.KeyServices;
 import services.UserService;
 
 import javax.servlet.*;
@@ -59,6 +60,10 @@ public class SignUp extends HttpServlet {
             user.setPassword(UserService.getInstance().hashPassword(pass));
             user.setVariety(0);
             UserService.getInstance().addUser(user);
+            int cuser = UserService.getInstance().getIdByUserName(user.getEmail());
+            KeyServices ks = new KeyServices();
+            ks.createKey();
+            ks.create(cuser);
             MailService.sendMail("Đăng ký tài khoản", "Bạn đã đăng ký tài khoản thành công, chào mừng đến với CRAFTS, chúc bạn có một trải nghiệm mua sắm vui vẻ!", email);
             request.getRequestDispatcher("sign-up.jsp").forward(request, response);
 
