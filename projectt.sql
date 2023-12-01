@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 01/12/2023 08:34:20
+ Date: 01/12/2023 09:44:00
 */
 
 SET NAMES utf8mb4;
@@ -894,6 +894,26 @@ INSERT INTO `information` VALUES (15, 'Tuấn', '2352345', 'Xã Mê Linh', 'Huy�
 INSERT INTO `information` VALUES (18, 'Go Hoang Gia Anh', '0128878957', 'Phu Lam', 'Phu Tan', 'An Giang', 1, 1, '0', 0);
 INSERT INTO `information` VALUES (20, 'Xưởng mộc Nguyên', '059499569', '190/23, Lê Trọng Tấn', 'Tân Bình', 'HCM', 2, 14, '2132', 0);
 INSERT INTO `information` VALUES (21, 'Mộc Cao Gia', '099569698', 'xã An Hào', 'Tịnh Biên', 'An Giang', 67, 5456, '56646', 0);
+INSERT INTO `information` VALUES (23, 'dam', '0987506443', 'Phường Bình Chiểu', 'Quận Thủ Đức', 'Hồ Chí Minh', 202, 1463, '21801', 0);
+
+-- ----------------------------
+-- Table structure for keys
+-- ----------------------------
+DROP TABLE IF EXISTS `keys`;
+CREATE TABLE `keys`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `public_key_base64` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `locked_date` datetime NULL DEFAULT NULL,
+  `status` int NULL DEFAULT 0,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `user_id`(`user_id` ASC) USING BTREE,
+  CONSTRAINT `keys_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of keys
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for line_item
@@ -916,6 +936,8 @@ INSERT INTO `line_item` VALUES (11, 89, '2');
 INSERT INTO `line_item` VALUES (12, 19, '1');
 INSERT INTO `line_item` VALUES (13, 1, '2');
 INSERT INTO `line_item` VALUES (14, 7, '2');
+INSERT INTO `line_item` VALUES (15, 22, '1');
+INSERT INTO `line_item` VALUES (16, 11, '1');
 
 -- ----------------------------
 -- Table structure for log
@@ -974,6 +996,8 @@ CREATE TABLE `order`  (
 INSERT INTO `order` VALUES (9, 'Giao buoi sang giup toi', 0, 3, 1, 0, NULL, NULL, b'0', '2023-05-03 14:43:22', 2, 15, '0', 1);
 INSERT INTO `order` VALUES (10, '', 3059909, 4, 1, 0, NULL, NULL, b'0', '2023-05-03 15:08:06', 2, 13, '0', 1);
 INSERT INTO `order` VALUES (15, '', 2655696, 10, 1, 0, NULL, NULL, b'0', '2023-05-03 15:30:35', 2, 14, '0', NULL);
+INSERT INTO `order` VALUES (16, '', 5565556, 11, 0, 0, NULL, NULL, b'0', '2023-12-01 08:38:58', 11, 23, '0', NULL);
+INSERT INTO `order` VALUES (17, '', 561000, 12, 0, 0, '2023-12-04 08:51:03', '2023-12-09 08:51:03', b'0', '2023-12-01 08:51:03', 11, 23, '0', NULL);
 
 -- ----------------------------
 -- Table structure for order_line
@@ -996,6 +1020,8 @@ INSERT INTO `order_line` VALUES (10, 11);
 INSERT INTO `order_line` VALUES (10, 12);
 INSERT INTO `order_line` VALUES (15, 13);
 INSERT INTO `order_line` VALUES (15, 14);
+INSERT INTO `order_line` VALUES (16, 15);
+INSERT INTO `order_line` VALUES (17, 16);
 
 -- ----------------------------
 -- Table structure for product
@@ -1761,6 +1787,8 @@ INSERT INTO `transport` VALUES (7, 29000, '2023-05-06 23:59:59', NULL, '2023-05-
 INSERT INTO `transport` VALUES (8, 29000, '2023-05-06 23:59:59', NULL, '2023-05-03 15:23:49');
 INSERT INTO `transport` VALUES (9, 29000, '2023-05-06 23:59:59', NULL, '2023-05-03 15:26:33');
 INSERT INTO `transport` VALUES (10, 29000, '2023-05-06 23:59:59', NULL, '2023-05-03 15:30:35');
+INSERT INTO `transport` VALUES (11, 10000, '2023-12-01 08:38:58', NULL, '2023-12-01 08:38:58');
+INSERT INTO `transport` VALUES (12, 25000, '2023-12-01 08:51:03', NULL, '2023-12-01 08:51:03');
 
 -- ----------------------------
 -- Table structure for user
@@ -1814,6 +1842,7 @@ CREATE TABLE `user_information`  (
 INSERT INTO `user_information` VALUES (2, 13);
 INSERT INTO `user_information` VALUES (2, 14);
 INSERT INTO `user_information` VALUES (2, 15);
+INSERT INTO `user_information` VALUES (11, 23);
 
 -- ----------------------------
 -- Table structure for vendor
