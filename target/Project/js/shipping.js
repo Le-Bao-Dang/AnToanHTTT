@@ -92,15 +92,31 @@ $(document).ready(function () {
     }
 
     $('.btn-total').click(function () {
+        // const filePath = $('#fileInput').val();
+        const filePathInput = $('#fileInput')[0];
         if ($('.contain-address input:radio:checked').val() === undefined) {
             $('#exampleModalCenter').modal({
+                show: true
+            });
+        }else if(!filePathInput.files.length){
+            $('#exampleModalFile').modal({
                 show: true
             });
         } else {
             let idInformation = $('.contain-address input:radio:checked').val();
             let discountCode = urlParams.get('discountCode');
             let note = $('.note').val();
-            window.location = 'http://localhost:8080/addOrder?idInformation=' + idInformation + '&discountCode=' + discountCode + '&note=' + note + '&shipFee=' + shipFee + '&shipDate=' + shipDate;
+            // let encodedFilePath = encodeURIComponent(filePath);
+
+            window.location = 'http://localhost:8080/addOrder?idInformation=' +
+                idInformation + '&discountCode=' +
+                discountCode + '&note=' +
+                note + '&shipFee=' +
+                shipFee + '&shipDate=' +
+                shipDate;
+
+
+
         }
 
 
