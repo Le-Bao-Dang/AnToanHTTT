@@ -26,6 +26,7 @@
 
 <div class="container content">
     <div class="row">
+
         <div class="col-7 left">
             <h5 class="title uppercase">Thanh toán</h5>
 
@@ -86,6 +87,15 @@
                 <h6 class="title uppercase"><i class="fa-regular fa-credit-card"></i>Ghi Chú</h6>
                 <textarea class="input note" rows="10" cols="10"></textarea>
             </div>
+
+            <div class="pay">
+                <h6 class="title uppercase"><i class="fa-regular fa-credit-card"></i>File khóa</h6>
+<%--                <textarea class="input note" rows="10" cols="10"></textarea>--%>
+
+                <input id="ajaxfile"class="input" type="file"/> <br/>
+                <button class="btn-add-address button submit" onclick="uploadFile()"> Upload file </button>
+
+            </div>
         </div>
         <div class="col-5 bill p-0">
             <div class="contain-bill p-4">
@@ -137,6 +147,7 @@
 
             </div>
         </div>
+
     </div>
 </div>
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
@@ -163,7 +174,29 @@
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="exampleModalFile" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalFileTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title uppercase" id="ModalLongTitle">Thêm file khóa private</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-add-address">
+                    Bạn chưa có file khóa private,hãy up file khóa private nhé!
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button button-close submit"
+                        data-dismiss="modal">Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <%@include file="footer.jsp" %>
 <a href="#" class="scrolltotop"><i class="fa fa-arrow-up"></i></a>
 
@@ -182,6 +215,18 @@
 <script src="js/general.js"></script>
 <script src="js/api-logistic.js"></script>
 <script src="js/shipping.js"></script>
+<script>
+    async function uploadFile() {
+        const ajaxfile = $('#ajaxfile')[0];
+        let formData = new FormData();
+        formData.append("file", ajaxfile.files[0]);
+        await fetch('http://localhost:8080/uploadfile', {
+            method: "POST",
+            body: formData
+        });
+        alert('The file upload with Ajax and Java was a success!');
+    }
+</script>
 </body>
 
 </html>

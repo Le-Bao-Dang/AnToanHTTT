@@ -7,10 +7,17 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @WebServlet(name = "AddOrder", value = "/addOrder")
+//@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2 MB
+//        maxFileSize = 1024 * 1024 * 10,      // 10 MB
+//        maxRequestSize = 1024 * 1024 * 50)  // 50 MB
 public class AddOrder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -18,7 +25,6 @@ public class AddOrder extends HttpServlet {
         String note = request.getParameter("note");
         int idInformation = Integer.parseInt(request.getParameter("idInformation"));
         String discountCode = request.getParameter("discountCode");
-
 
         int shipFee = 25000;
 
@@ -62,6 +68,7 @@ public class AddOrder extends HttpServlet {
         CartService.getInstance().removeAllProductByUserId(user.getId());
 
         request.getRequestDispatcher("finish-buy.jsp").forward(request, response);
+
 //        Log log = new Log();
 //        log.setEvent("/addOrder");
 //        log.setDescription("Thanh toán thành công, tổng giá trị đơn hàng: " + order.getTotal());
@@ -70,7 +77,16 @@ public class AddOrder extends HttpServlet {
 //        LogService.getInstance().insert(log);
 
     }
-
+    private String getSubmittedFileName(Part part) {
+        for (String cd : part.getHeader("content-disposition").split(";")) {
+            if (cd.trim().startsWith("filename")) {
+                String fileName = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+                return fileName.substring(fileName.lastIndexOf('/') + 1)
+                        .substring(fileName.lastIndexOf('\\') + 1);
+            }
+        }
+        return null;
+    }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

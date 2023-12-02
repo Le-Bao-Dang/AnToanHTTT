@@ -22,7 +22,7 @@ public class SignVerifyServices {
         return instance;
     }
 
-    public String signOrder(Order order, PrivateKey privateKey){
+    public boolean signOrder(Order order, PrivateKey privateKey){
         String orderInfo = order.toString();
         try {
             Signature signature = Signature.getInstance(Name, "BC");
@@ -33,12 +33,18 @@ public class SignVerifyServices {
             // Tạo chữ ký điện tử
             byte[] digitalSignature = signature.sign();
             String base64OrderData = Base64.getEncoder().encodeToString(digitalSignature);
+            JDBIConnector.get().withHandle(
+                    handle -> handle.createUpdate("insert into `order_signatures`( order_id,signature_base64 ,status ) values(?,?,?) ")
+                            .bind(0,order.getId())
+                            .bind(1,base64OrderData)
+                            .bind(2,0)
+                            .execute());
             // In ra chữ ký điện tử
             System.out.println("Digital Signature: " + base64OrderData);
-            return base64OrderData;
+            return true;
         }catch (Exception e){
             e.printStackTrace();
-            return null;
+            return false;
         }
 
     }
