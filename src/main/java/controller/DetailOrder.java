@@ -20,6 +20,7 @@ public class DetailOrder extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Order order = OrderService.getInstance().getOrderByOrderId(id);
+
         User user = UserService.getInstance().getUserById(order.getUser().getId());
         int total = OrderService.getInstance().total(order);
         System.out.println("đã dô");

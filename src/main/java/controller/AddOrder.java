@@ -6,18 +6,18 @@ import services.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 @WebServlet(name = "AddOrder", value = "/addOrder")
-//@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2 MB
-//        maxFileSize = 1024 * 1024 * 10,      // 10 MB
-//        maxRequestSize = 1024 * 1024 * 50)  // 50 MB
+
 public class AddOrder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,6 +25,7 @@ public class AddOrder extends HttpServlet {
         String note = request.getParameter("note");
         int idInformation = Integer.parseInt(request.getParameter("idInformation"));
         String discountCode = request.getParameter("discountCode");
+        String filePrivateName = request.getParameter("fileName");
 
         int shipFee = 25000;
 
@@ -36,6 +37,18 @@ public class AddOrder extends HttpServlet {
         int idTransport = TransportService.getInstance().add(transport);
         transport.setId(idTransport);
 
+        LocalDateTime nowDateTime = LocalDateTime.now(); // Đây là ví dụ, bạn có thể thay đổi thành đối tượng LocalDateTime của bạn
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+
+        String createFormattedDateTime = nowDateTime.format(formatter);
+        LocalDateTime createdateTime = LocalDateTime.parse(createFormattedDateTime, formatter);
+
+        String threeFormattedDateTime = threeDaysLater.format(formatter);
+        LocalDateTime threedateTime = LocalDateTime.parse(threeFormattedDateTime, formatter);
+
+        String fiveFormattedDateTime = fiveDaysLater.format(formatter);
+        LocalDateTime fivedateTime = LocalDateTime.parse(fiveFormattedDateTime, formatter);
+
         Order order = new Order();
 
         order.setNote(note);
@@ -44,12 +57,12 @@ public class AddOrder extends HttpServlet {
         order.setTransport(transport);
         order.setPaymentMethod(0);
         order.setStatusDelivery(0);
-        order.setCreateDate(LocalDateTime.now());
+        order.setCreateDate(createdateTime);
         order.setListOrderItem(user.getListCartItem());
         order.setStatus(0);
         order.setUser(user);
-        order.setDeliveryDate(threeDaysLater);
-        order.setReceivingDate(fiveDaysLater);
+        order.setDeliveryDate(threedateTime);
+        order.setReceivingDate(fivedateTime);
 
         if (!"".equals(discountCode)) {
             Discount discount = DiscountService.getInstance().getDiscountByCode(discountCode);
@@ -63,7 +76,21 @@ public class AddOrder extends HttpServlet {
 
         user.setListCartItem(new ArrayList<>());
 
-        OrderService.getInstance().add(order);
+        Order o = OrderService.getInstance().addOrderAndReturn(order);
+        o = FormatOrder.getInstance().format(o);
+        // sign here
+        KeyServices ks = new KeyServices();
+        File file = new File("");
+
+        if(ks.readPrivateKeyFromFile(file.getAbsolutePath()+"\\" + filePrivateName+".pem")){
+            SignVerifyServices.getInstance().signOrder(o,ks.exportPrivateKey());
+
+        }else{
+
+            System.out.println("Lỗi đọc file private"+filePrivateName);
+        }
+
+
 
         CartService.getInstance().removeAllProductByUserId(user.getId());
 

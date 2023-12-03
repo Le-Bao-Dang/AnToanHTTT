@@ -25,6 +25,8 @@
 <body>
 <%
     Order order = (Order) request.getAttribute("order");
+    String error = (String) request.getAttribute("error");
+    String verify = (String) request.getAttribute("verify") ;
     List<HistoryPrice> listPrice = (List<HistoryPrice>) request.getAttribute("listPrice");
     int total = 0;
 %>
@@ -97,6 +99,7 @@
                                     <th scope="col">Đơn giá</th>
                                     <th scope="col">Số lượng</th>
                                     <th scope="col">Thành tiền</th>
+                                    <th scope="col">Xác minh</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -130,6 +133,7 @@
                                     </td>
                                     <%total += listPrice.get(i).getPriceSale() * orderItems.get(i).getQuantity();%>
                                     <%}%>
+                                    <td><%=verify%></td>
                                 </tr>
                                 <%}%>
 
