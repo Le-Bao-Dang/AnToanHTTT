@@ -1,9 +1,8 @@
 package services;
 
-import bean.Review;
+
 import db.JDBIConnector;
 
-import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.*;
@@ -11,7 +10,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class KeyServices {
 
@@ -72,29 +71,29 @@ public class KeyServices {
     }
 
 
-    public void create(int userid){
+    public void addPublicKey(int userid){
         JDBIConnector.get().withHandle(
                 handle -> handle.createUpdate("insert into `keys`( user_id,public_key_base64 ,status ) values(?,?,?) ")
                         .bind(0,userid)
                         .bind(1,exportStringPublicKey())
                         .bind(2,0)
                         .execute());
-        savePrivateKeyToFile(exportPrivateKey(),System.getProperty("user.home") + "/Downloads/"+userid+"_private_key.pem");
+     //   savePrivateKeyToFile(exportPrivateKey(),System.getProperty("user.home") + "/Downloads/"+userid+"_private_key.pem");
     }
-    private void savePrivateKeyToFile(PrivateKey privateKey, String fileName) {
-        // Chuyển đổi private key sang định dạng PKCS#8
-        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(privateKey.getEncoded());
-
-        // Lưu private key vào file
-        try (FileOutputStream fos = new FileOutputStream(fileName)) {
-            fos.write(pkcs8EncodedKeySpec.getEncoded());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        System.out.println("Private key đã được lưu vào file: " + fileName);
-    }
-    private  boolean readPrivateKeyFromFile(String filePath)  {
+//    public void savePrivateKeyToFile(PrivateKey privateKey, String fileName) {
+//        // Chuyển đổi private key sang định dạng PKCS#8
+//        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(privateKey.getEncoded());
+//
+//        // Lưu private key vào file
+//        try (FileOutputStream fos = new FileOutputStream(fileName)) {
+//            fos.write(pkcs8EncodedKeySpec.getEncoded());
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//
+//        System.out.println("Private key đã được lưu vào file: " + fileName);
+//    }
+    public  boolean readPrivateKeyFromFile(String filePath)  {
         // Đọc nội dung của file vào mảng byte
         try{
             byte[] keyBytes = Files.readAllBytes(Paths.get(filePath));
@@ -110,24 +109,35 @@ public class KeyServices {
             return false;
         }
     }
-    private  boolean readPublicKeyFromDatabase(int userId)  {
-        // Đọc nội dung của file vào mảng byte
-        try{
+    public  boolean readPublicKeyFromDatabase(int userId)  {
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+        try {
             List<String> base64PublicKeys = JDBIConnector.get().withHandle(handle -> {
                 return handle.createQuery("SELECT public_key_base64 FROM `keys` WHERE user_id = :userId AND status = 0")
                         .bind("userId", userId)
                         .mapTo(String.class)
                         .list();
             });
-            if (base64PublicKeys.size() != 0) return false;
-            checkPublicKeyValid(base64PublicKeys.get(0));
-            return true;
-        }catch (Exception e){
+
+            if (base64PublicKeys.isEmpty()) {
+                System.out.println("Khóa public không tồn tại");
+                return false;
+            }
+
+            if (checkPublicKeyValid(base64PublicKeys.get(0))) {
+                System.out.println("Khóa public thành công");
+                return true;
+            } else {
+                System.out.println("Khóa public không hợp lệ");
+                return false;
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Khóa public không hợp lệ");
             return false;
         }
     }
+
 
 }
 

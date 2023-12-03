@@ -93,12 +93,12 @@ $(document).ready(function () {
 
     $('.btn-total').click(function () {
         // const filePath = $('#fileInput').val();
-        const filePathInput = $('#fileInput')[0];
+        const ajaxfile = $('#ajaxfile')[0];
         if ($('.contain-address input:radio:checked').val() === undefined) {
             $('#exampleModalCenter').modal({
                 show: true
             });
-        }else if(!filePathInput.files.length){
+        }else if(!ajaxfile.files.length){
             $('#exampleModalFile').modal({
                 show: true
             });
@@ -107,13 +107,16 @@ $(document).ready(function () {
             let discountCode = urlParams.get('discountCode');
             let note = $('.note').val();
             // let encodedFilePath = encodeURIComponent(filePath);
+            let filename = document.getElementById('hiddenInput').value;
+            let splitName = filename.split('.')[0];
 
             window.location = 'http://localhost:8080/addOrder?idInformation=' +
                 idInformation + '&discountCode=' +
                 discountCode + '&note=' +
-                note + '&shipFee=' +
+                note+ '&fileName='
+                +splitName + '&shipFee=' +
                 shipFee + '&shipDate=' +
-                shipDate;
+                shipDate ;
 
 
 

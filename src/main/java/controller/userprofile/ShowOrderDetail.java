@@ -1,8 +1,7 @@
 package controller.userprofile;
 
 import bean.*;
-import services.HistoryPriceService;
-import services.OrderService;
+import services.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -17,8 +16,24 @@ public class ShowOrderDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int orderId = Integer.parseInt(request.getParameter("orderId"));
-
+        User user = (User) request.getSession().getAttribute("auth");
         Order order = OrderService.getInstance().getOrderByOrderId(orderId);
+        order = FormatOrder.getInstance().format(order);
+        System.out.println(order.toString());
+
+        KeyServices ks = new KeyServices();
+
+        if (ks.readPublicKeyFromDatabase(user.getId())){
+            if(SignVerifyServices.getInstance().verifyOrder(order, ks.exportPublicKey())){
+                request.setAttribute("verify", "Verified");
+            }else{
+                request.setAttribute("verify", "Not Verified");
+            }
+        }else{
+            request.setAttribute("error", "User không có khóa Public Key!!");
+        }
+
+
         request.setAttribute("order", order);
 
         List<HistoryPrice> listPrice = new ArrayList<>();

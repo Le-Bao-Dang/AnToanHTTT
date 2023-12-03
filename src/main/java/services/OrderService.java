@@ -6,6 +6,7 @@ import bean.Order;
 import db.JDBIConnector;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,13 +66,14 @@ public class OrderService implements Serializable {
             order.setUser(UserService.getInstance().getUserByOrderId(orderId));
             order.setTransport(TransportService.getInstance().getTransportByOrderId(orderId));
             order.setInformation(InformationService.getInstance().getInformationByOrderId(orderId));
+
             return order;
         });
     }
 
 
-    public void add(Order order) {
-        JDBIConnector.get().withHandle(handle -> handle.createUpdate("INSERT INTO `order`(note,total,transport_id,status_delivery,payment_method,delivery_date,receiving_date,is_payment,create_date,user_id,information_id,`status`,discount_id \n) " +
+    public boolean add(Order order) {
+        int orderId =JDBIConnector.get().withHandle(handle -> handle.createUpdate("INSERT INTO `order`(note,total,transport_id,status_delivery,payment_method,delivery_date,receiving_date,is_payment,create_date,user_id,information_id,`status`,discount_id \n) " +
                         "VALUES (:note,:total,:transport_id,:status_delivery,:payment_method,:delivery_date,:receiving_date,:is_payment,:create_date,:user_id,:information_id,0,:discount_id)")
                 .bind("note", order.getNote())
                 .bind("total", order.getTotal())
@@ -85,21 +87,62 @@ public class OrderService implements Serializable {
                 .bind("user_id", order.getUser().getId())
                 .bind("information_id", order.getInformation().getId())
                 .bind("discount_id", order.getDiscount() == null ? null : order.getDiscount().getId())
-                .execute());
+                .executeAndReturnGeneratedKeys("id")
+                .mapTo(int.class)
+                .one());
 
         //Them danh sach cac item cua 1 order vao bang order_line
         StringBuilder query = new StringBuilder();
         for (int i = 0; i < order.getListOrderItem().size(); i++) {
-            query.append("INSERT INTO `order_line` VALUES (" + order.getId() + order.getListOrderItem().get(i).getId() + ");");
+            query.append("INSERT INTO `order_line` VALUES (" + orderId + order.getListOrderItem().get(i).getId() + ");");
         }
         JDBIConnector.get().withHandle(handle -> handle.createUpdate(query.toString()));
 
+
         for (LineItem lineItem : order.getListOrderItem()) {
             addOrderItem(lineItem);
-            addOrderLine(maxId(), LineItemService.getInstance().maxId());
-        }
-    }
+            int liId =  LineItemService.getInstance().maxId();
+            addOrderLine(orderId, liId);
 
+        }
+
+
+        return true;
+    }
+    public Order addOrderAndReturn(Order order) {
+        int orderId =JDBIConnector.get().withHandle(handle -> handle.createUpdate("INSERT INTO `order`(note,total,transport_id,status_delivery,payment_method,delivery_date,receiving_date,is_payment,create_date,user_id,information_id,`status`,discount_id \n) " +
+                        "VALUES (:note,:total,:transport_id,:status_delivery,:payment_method,:delivery_date,:receiving_date,:is_payment,:create_date,:user_id,:information_id,0,:discount_id)")
+                .bind("note", order.getNote())
+                .bind("total", order.getTotal())
+                .bind("transport_id", order.getTransport().getId())
+                .bind("status_delivery", order.getStatusDelivery())
+                .bind("payment_method", order.getPaymentMethod())
+                .bind("delivery_date", order.getDeliveryDate())
+                .bind("receiving_date", order.getReceivingDate())
+                .bind("is_payment", order.isPayment())
+                .bind("create_date", order.getCreateDate())
+                .bind("user_id", order.getUser().getId())
+                .bind("information_id", order.getInformation().getId())
+                .bind("discount_id", order.getDiscount() == null ? null : order.getDiscount().getId())
+                .executeAndReturnGeneratedKeys("id")
+                .mapTo(int.class)
+                .one());
+
+        //Them danh sach cac item cua 1 order vao bang order_line
+
+        order.setId(orderId);
+        List<LineItem> lils = new ArrayList<>();
+        for (LineItem lineItem : order.getListOrderItem()) {
+            addOrderItem(lineItem);
+            int liId =  LineItemService.getInstance().maxId();
+            lineItem.setId(liId);
+            addOrderLine(orderId, liId);
+            lils.add(lineItem);
+        }
+        order.setListOrderItem(lils);
+
+        return order;
+    }
     public void addOrderLine(int orderId, int lineItemId) {
         JDBIConnector.get().withHandle(
                 handle -> handle.createUpdate("INSERT INTO order_line VALUES (:order_id, :line_item_id);")

@@ -23,6 +23,7 @@ public class SignVerifyServices {
     }
 
     public boolean signOrder(Order order, PrivateKey privateKey){
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
         String orderInfo = order.toString();
         try {
             Signature signature = Signature.getInstance(Name, "BC");
@@ -49,6 +50,7 @@ public class SignVerifyServices {
 
     }
     public boolean verifyOrder(Order order, PublicKey publicKey){
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
         String orderInfo = order.toString();
         try {
             List<String> base64Signatures = JDBIConnector.get().withHandle(handle -> {
@@ -57,7 +59,7 @@ public class SignVerifyServices {
                         .mapTo(String.class)
                         .list();
             });
-            if (base64Signatures.size() != 0) return false;
+            if (base64Signatures.isEmpty()) return false;
             byte[] orderSignatureInfo = Base64.getDecoder().decode(base64Signatures.get(0));
 
             Signature signature = Signature.getInstance(Name, "BC");
@@ -77,9 +79,7 @@ public class SignVerifyServices {
             }
         }catch (Exception e){
             e.printStackTrace();
-
             return false;
         }
-
     }
 }
