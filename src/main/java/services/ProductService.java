@@ -402,8 +402,13 @@ public class ProductService {
 
 
     public static void main(String[] args) {
-        System.out.println(getInstance().getListSameProduct(2));
+
+//        System.out.println(getInstance().getListSameProduct(2));
+//        System.out.println(getInstance().getListFavouriteProduct());
+
+        System.out.println(getInstance().getProductById(3));
     }
+
 
 
     public Product getProductByName(String name) {

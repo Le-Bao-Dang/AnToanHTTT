@@ -1,10 +1,5 @@
 Manifest-Version: 1.0
 Created-By: IntelliJ IDEA
-<<<<<<< HEAD
 Built-By: Admin
 Build-Jdk: 17
-=======
-Built-By: dangl
-Build-Jdk: 17.0.6
->>>>>>> 2dc4dcf849124599cf9f18cd621c0b5a03545705
 
