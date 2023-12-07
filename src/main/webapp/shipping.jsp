@@ -221,7 +221,7 @@
         const ajaxfile = $('#ajaxfile')[0];
         let formData = new FormData();
         formData.append("file", ajaxfile.files[0]);
-        await fetch('http://localhost:8080/uploadfile', {
+        await fetch('<%=request.getContextPath()%>/uploadfile', {
             method: "POST",
             body: formData
         }).then((data)=>{
@@ -349,7 +349,7 @@
                 let filename = document.getElementById('hiddenInput').value;
                 let splitName = filename.split('.')[0];
 
-                window.location = 'http://localhost:8080/addOrder?idInformation=' +
+                window.location = '<%=request.getContextPath()%>/addOrder?idInformation=' +
                     idInformation + '&discountCode=' +
                     discountCode + '&note=' +
                     note+ '&fileName='
@@ -365,7 +365,7 @@
         })
 
         $('.btn-add-address').click(function () {
-            window.location = 'http://localhost:8080/showAddress';
+            window.location = '<%=request.getContextPath()%>/showAddress';
         })
 
 

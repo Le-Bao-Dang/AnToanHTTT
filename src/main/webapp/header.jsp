@@ -11,16 +11,16 @@
     <li class="nav-item center" id="nav-items">
 
         <a class="nav-link  " id="sanpham"
-           href="http://localhost:8080/listProduct?kind=<%=ProductService.ALL%>">Sản
+           href="<%=request.getContextPath()%>/listProduct?kind=<%=ProductService.ALL%>">Sản
             Phẩm</a>
         <a class="nav-link  " id="go"
-           href="http://localhost:8080/listProduct?kind=<%=ProductService.WOOD%>">Gỗ</a>
+           href="<%=request.getContextPath()%>/listProduct?kind=<%=ProductService.WOOD%>">Gỗ</a>
         <a class="nav-link  " id="gom"
-           href="http://localhost:8080/listProduct?kind=<%=ProductService.CERAMIC%>">Gốm</a>
+           href="<%=request.getContextPath()%>/listProduct?kind=<%=ProductService.CERAMIC%>">Gốm</a>
         <a class="nav-link "
-           href="http://localhost:8080/listProduct?kind=<%=ProductService.PAINT%>">Tranh</a>
+           href="<%=request.getContextPath()%>/listProduct?kind=<%=ProductService.PAINT%>">Tranh</a>
         <a class="nav-link  "
-           href="http://localhost:8080/listProduct?kind=<%=ProductService.SALE%>">giảm
+           href="<%=request.getContextPath()%>/listProduct?kind=<%=ProductService.SALE%>">giảm
             giá</a>
 
     </li>
@@ -56,7 +56,7 @@
             <%} else {%>
             <img id="small-avt" src="<%=user.getAvatar().getSource()%>" alt="">
             <%}%>
-            <a href="http://localhost:8080/userProfile" class="item-right">
+            <a href="<%=request.getContextPath()%>/userProfile" class="item-right">
                 <p><%=user.getName()%>
                 </p>
             </a>
@@ -66,7 +66,7 @@
                 class="fa-solid fa-cart-shopping"></i>
             <p>Giỏ hàng</p>
         </a>
-        <a href="http://localhost:8080/doLogin" class="item-right">
+        <a href="<%=request.getContextPath()%>/doLogin" class="item-right">
             <i class="fa-solid fa-user"></i>
             <p>Đăng nhập</p>
         </a>

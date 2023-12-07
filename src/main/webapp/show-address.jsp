@@ -206,7 +206,7 @@
     $(document).ready(function () {
         login();
         $('#infor-tab').click(function () {
-            window.location = "http://localhost:8080/userProfile";
+            window.location = "<%=request.getContextPath()%>/userProfile";
         })
 
         $(document).on('click', '.btn-add-address', function () {
@@ -350,7 +350,7 @@
                 error: function (xhr) {
                 }
             }).done(function () {
-                window.location = "http://localhost:8080/showAddress";
+                window.location = "<%=request.getContextPath()%>/showAddress";
             })
             ;
             $('#exampleAddAddress').modal('toggle');
@@ -377,7 +377,7 @@
 
         })
         $('#logout-tab').click(function () {
-            window.location = "http://localhost:8080/logOut";
+            window.location = "<%=request.getContextPath()%>/logOut";
         })
     })
 </script>
