@@ -32,7 +32,7 @@
         </ul>
         <div class="contain-btn " style="justify-content: center">
             <div class="contain-btn" >
-                <a href="<%=request.getContextPath()%>/listProduct?kind=<%=ProductService.ALL%>"
+                <a href="http://localhost:8080/listProduct?kind=<%=ProductService.ALL%>"
                    class="return uppercase submit">quay lại mua hàng</a>
             </div>
         </div>

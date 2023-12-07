@@ -95,7 +95,7 @@
                 id: $(this).val().trim()
             },
             success: function () {
-                window.location='<%=request.getContextPath()%>/contactManager';
+                window.location='http://localhost:8080/contactManager';
             }
         })
 

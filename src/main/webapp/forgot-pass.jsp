@@ -43,7 +43,7 @@
             <input type="submit" class="submit" value="Đổi mật khẩu">
 
         </div>
-        <a href="<%=request.getContextPath()%>/doLogin">Quay lại</a>
+        <a href="http://localhost:8080/doLogin">Quay lại</a>
     </div>
 </div>
 </body>

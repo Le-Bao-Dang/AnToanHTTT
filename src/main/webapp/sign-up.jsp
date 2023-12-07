@@ -63,7 +63,7 @@
 
             <input type="submit" class="submit" value="Đăng ký">
         </form>
-        <span>Đã có tài khoản? <a href="<%=request.getContextPath()%>/doLogin">Đăng nhập</a></span>
+        <span>Đã có tài khoản? <a href="http://localhost:8080/doLogin">Đăng nhập</a></span>
     </div>
 </div>
 </body>

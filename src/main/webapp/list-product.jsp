@@ -49,7 +49,7 @@
             <div class="row">
                 <div class="row type-left">
                     <ul class="">
-                        <li class="drivider"><a href="<%=request.getContextPath()%>/listProduct?kind=0&page=1&group=0&sort=0">Tất
+                        <li class="drivider"><a href="http://localhost:8080/listProduct?kind=0&page=1&group=0&sort=0">Tất
                             cả</a></li>
                     </ul>
                 </div>
@@ -59,9 +59,9 @@
             <div class="row type-item">
                 <div class="state">
                     <ul>
-                        <li class="item"><a href="<%=request.getContextPath()%>/listProduct?kind=4&group=0&page=1&sort=0">
+                        <li class="item"><a href="http://localhost:8080/listProduct?kind=4&group=0&page=1&sort=0">
                             Giảm giá</a></li>
-                        <li class="item"><a href="<%=request.getContextPath()%>/listProduct?kind=5&group=0&page=1&sort=0"> Sản
+                        <li class="item"><a href="http://localhost:8080/listProduct?kind=5&group=0&page=1&sort=0"> Sản
                             phẩm mới</a></li>
                     </ul>
                 </div>
@@ -135,12 +135,12 @@
                 <div class="col-4">
                     <div class="thumbnail">
                         <div class="cont-item ">
-                            <a href="<%=request.getContextPath()%>/detail-product?id=<%=product.getId()%>"><img
+                            <a href="http://localhost:8080/detail-product?id=<%=product.getId()%>"><img
                                     src="<%=product.getListImage().get(0).getSource()%>" alt="">
                             </a>
                         </div>
                             <div class="button">
-                                <a href="<%=request.getContextPath()%>/detail-product?id=<%= product.getId()%>"
+                                <a href="http://localhost:8080/detail-product?id=<%= product.getId()%>"
                                    class="buy-now"> Mua ngay</a>
                                 <button class="wish-list btn-add-cart" value="<%= product.getId()%>"><i
                                         class="fa-solid fa-cart-plus"></i></button>
@@ -148,7 +148,7 @@
                             </div>
                             <div class="caption">
                                 <h3>
-                                    <a href="<%=request.getContextPath()%>/detail-product?id=<%= product.getId()%>"><%= product.getName()%>
+                                    <a href="http://localhost:8080/detail-product?id=<%= product.getId()%>"><%= product.getName()%>
                                     </a></h3>
                                 <div class="ratting">
                                     <% int count = product.getRate();
