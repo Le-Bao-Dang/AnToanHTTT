@@ -33,7 +33,7 @@
             </p>
             <input type="text" name="user" class="name input" placeholder="Email hoặc số điện thoại">
             <input type="password" name="password" class="pass input" placeholder="Mật khẩu">
-            <a href="http://localhost:8080/forgotPass" class="forget"> Bạn quên mật khẩu?</a>
+            <a href="<%=request.getContextPath()%>/forgotPass" class="forget"> Bạn quên mật khẩu?</a>
 
             <input type="submit" name="submit" class="submit" value="Đăng nhập">
             <p style="color:red;text-align: center">Hoặc bạn có thể đăng nhập bằng:</p>
@@ -41,7 +41,7 @@
             </fb:login-button>
             <div class="g-signin2" data-onsuccess="onSignIn"></div>
             <div id="status"></div>
-            <p class="sign-up">Tạo tài khoản mới miễn phí <a href="http://localhost:8080/doSignUp">tại đây</a></p>
+            <p class="sign-up">Tạo tài khoản mới miễn phí <a href="<%=request.getContextPath()%>/doSignUp">tại đây</a></p>
         </div>
     </form>
 </div>
@@ -105,7 +105,7 @@
                     id: response.id
                 },
                 success: function (response) {
-                    window.location = "http://localhost:8080/homepage";
+                    window.location = "<%=request.getContextPath()%>/homepage";
                 }
             });
             document.getElementById('status').innerHTML =
