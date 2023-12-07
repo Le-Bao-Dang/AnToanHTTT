@@ -1,0 +1,12 @@
+
+.total-detail tbody{
+    display: flex;
+    margin-left: 570px;
+}
+.total-detail tr{
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+
+}
