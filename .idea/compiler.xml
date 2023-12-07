@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Project" />
         <module name="AnToanHTTT" />
+        <module name="AnToanHTTT-00a4d8883a9b9d9a2ad07474e2ed130a166b0459" />
       </profile>
     </annotationProcessing>
   </component>
