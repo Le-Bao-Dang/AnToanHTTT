@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <annotationProcessing>
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="Project" />
-        <module name="AnToanHTTT" />
-        <module name="AnToanHTTT-00a4d8883a9b9d9a2ad07474e2ed130a166b0459" />
-      </profile>
-    </annotationProcessing>
+    <bytecodeTargetLevel target="11">
+      <module name="AnToanHTTT" target="15" />
+    </bytecodeTargetLevel>
   </component>
 </project>
