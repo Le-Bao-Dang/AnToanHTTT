@@ -138,6 +138,9 @@
                     <% if (order.getStatusDelivery() == 1) {%>
                     <td> Giao hàng thành công
                     </td>
+                    <%}else{%>
+                    <td> Chờ bàn giao
+                    </td>
                     <%}%>
 
                     <td>
