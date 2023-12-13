@@ -141,31 +141,33 @@
                             </table>
                             <table class="total-detail">
                                 <tr>
+                                    <td>Ngày nhận hàng (dự kiến):</td>
                                     <td>Tổng tiền hàng:</td>
                                     <td>Phí vận chuyển:</td>
                                     <td>Mã giảm giá:</td>
                                     <td>Thành tiền:</td>
                                 </tr>
-                                <%--                                <tr>--%>
-                                <%--                                    <td><%=Format.format(total)%> VND</td>--%>
-                                <%--                                    <td>+ <%=Format.format(order.getTransport().getFee())%> VND</td>--%>
-                                <%--                                    <%if (order.getListDiscount().size() == 0) {%>--%>
-                                <%--                                    <td>- 0 VND</td>--%>
-                                <%--                                    <td><%=Format.format(total + order.getTransport().getFee()) %>--%>
-                                <%--                                        VND--%>
-                                <%--                                    </td>--%>
-                                <%--                                    <%--%>
-                                <%--                                    } else {--%>
-                                <%--                                    %>--%>
-                                <%--                                    <td>- <%=Format.format(order.getListDiscount().get(0).getValue())%> VND</td>--%>
-                                <%--                                    <td><%=Format.format(total + order.getTransport().getFee() - order.getListDiscount().get(0).getValue()) %>--%>
-                                <%--                                        VND--%>
-                                <%--                                    </td>--%>
-                                <%--                                    <%--%>
+                                                                <tr>
+                                                                    <td><%=order.getReceivingDate()%></td>
+                                                                    <td><%=Format.format(total - order.getTransport().getFee())%> VND</td>
+                                                                    <td>+ <%=Format.format(order.getTransport().getFee())%> VND</td>
+<%--                                                                    <%if (order.getListDiscount().size() == 0) {%>--%>
+                                                                    <td>- 0 VND</td>
+                                                                    <td><%=Format.format(total) %>
+                                                                        VND
+                                                                    </td>
+<%--                                                                    <%--%>
+<%--                                                                    } else {--%>
+<%--                                                                    %>--%>
+<%--                                                                    <td>- <%=Format.format(order.getListDiscount().get(0).getValue())%> VND</td>--%>
+<%--                                                                    <td><%=Format.format(total + order.getTransport().getFee() - order.getListDiscount().get(0).getValue()) %>--%>
+<%--                                                                        VND--%>
+<%--                                                                    </td>--%>
+<%--                                                                    <%--%>
 
-                                <%--                                        }--%>
-                                <%--                                    %>--%>
-                                <%--                                </tr>--%>
+<%--                                                                        }--%>
+<%--                                                                    %>--%>
+                                                                </tr>
                             </table>
                         </div>
 
