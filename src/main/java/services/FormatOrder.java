@@ -51,7 +51,7 @@ public class FormatOrder {
         result.setListOrderItem(listOrderItems);
         result.setDiscount(null);
         result.setTransport(order.getTransport());
-        result.setStatusDelivery(order.getStatusDelivery());
+//        result.setStatusDelivery(order.getStatusDelivery());
         result.setPaymentMethod(order.getPaymentMethod());
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
@@ -76,7 +76,7 @@ public class FormatOrder {
 
         result.setUser(u);
         result.setInformation(order.getInformation());
-        result.setStatus(order.getStatus());
+//        result.setStatus(order.getStatus());
 
         return result;
     }
