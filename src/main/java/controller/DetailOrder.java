@@ -4,9 +4,7 @@ import bean.Format;
 import bean.LineItem;
 import bean.Order;
 import bean.User;
-import services.LineItemService;
-import services.OrderService;
-import services.UserService;
+import services.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -25,6 +23,17 @@ public class DetailOrder extends HttpServlet {
         int total = OrderService.getInstance().total(order);
 
         List<LineItem> orderDetails = LineItemService.getInstance().getListLineItemByOrderId(order.getId());
+        KeyServices ks = new KeyServices();
+
+        if (ks.readPublicKeyFromDatabase(user.getId())){
+            if(SignVerifyServices.getInstance().verifyOrder(FormatOrder.getInstance().format(order), ks.exportPublicKey())){
+                request.setAttribute("verify", true);
+            }else{
+                request.setAttribute("verify", false);
+            }
+        }else{
+            request.setAttribute("error", "User không có khóa Public Key!!");
+        }
 
         String name = "Chi tiet don hang";
         request.setAttribute("name", name);
@@ -41,6 +50,15 @@ public class DetailOrder extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int orderId = Integer.parseInt(request.getParameter("id"));
+        int orderStatus = Integer.parseInt(request.getParameter("status"));
 
+        // Thực hiện xử lý dữ liệu (ví dụ: cập nhật trạng thái đơn hàng trong cơ sở dữ liệu)
+        boolean done = OrderService.getInstance().updateStatus(orderId,orderStatus);
+        if (done){
+            response.getWriter().write("Xử lý thành công!");
+        }else{
+            System.out.println("Lỗi");
+        }
     }
 }

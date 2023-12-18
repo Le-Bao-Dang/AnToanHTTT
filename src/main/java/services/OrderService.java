@@ -71,6 +71,20 @@ public class OrderService implements Serializable {
         });
     }
 
+    public boolean updateStatus(int orderId, int status){
+        try {
+            JDBIConnector.get().withHandle(handle -> {
+                return handle.createUpdate("   UPDATE `order` SET status = ?  WHERE id = ?;")
+                        .bind(0, status)
+                        .bind(1, orderId).
+                        execute();
+            });
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     public boolean add(Order order) {
         int orderId =JDBIConnector.get().withHandle(handle -> handle.createUpdate("INSERT INTO `order`(note,total,transport_id,status_delivery,payment_method,delivery_date,receiving_date,is_payment,create_date,user_id,information_id,`status`,discount_id \n) " +

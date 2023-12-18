@@ -30,12 +30,13 @@
         Order order = (Order) request.getAttribute("order");
         int total = (int) request.getAttribute("total");
         List<LineItem>  orderDetails = (List<LineItem> ) request.getAttribute("orderDetails");
+        boolean verify =(boolean)request.getAttribute("verify");
     %>
 
 <div class="table">
     <div class="table-cart">
-        <form class="form">
-            <button class="close"type="button"><p style="color: #1cde00">Đã xác minh</p></button>
+        <form class="form form-order-detail">
+            <button class="close"type="button"><p style="color: #1cde00"><%=verify?"Đã xác minh":"Chưa xác minh"%></p></button>
             <header style="font-weight: bold;color: #0059d3">Chi tiết đơn hàng <%=order.getId()%></header>
             <div class="input-box">
                 <label style="font-weight: bold"> Tên khách hàng</label>
@@ -139,24 +140,57 @@
                     </div>
                 </div>
             </div>
+            <%
+                String oStatus = "Đã hủy";
+                String oStatusColor = "status-red";
+                if (order.getStatus()==0){
+                    oStatus= "Chờ xác nhận";
+                    oStatusColor = "status-yellow";
+                } else if (order.getStatus()==1) {
+                    oStatus= "Đã xác nhận";
+                    oStatusColor = "status-green";
+                } else if (order.getStatus()==2) {
+                    oStatus= "Đang giao hàng";
+                    oStatusColor = "status-blue";
+                } else if (order.getStatus()==3) {
+                    oStatus= "Đã nhận hàng";
+                    oStatusColor = "status-white";
+                }
+            %>
             <div class="input-box">
                 <label style="font-weight: bold">Trạng thái đơn hàng</label>
                 <div class="row">
                     <div class="col-lg-12">
-                        <p><%=order.getStatus()==0?"Chờ xác nhận":order.getStatus()==1?"Đã xác nhận":order.getStatus()==2?"Đang giao hàng":order.getStatus()==3?"Đã nhận hàng":"Đã hủy"%></p>
+                        <p style="width: 125px" class="<%=oStatusColor%>"><%=oStatus%></p>
                     </div>
                 </div>
                 <label style="font-weight: bold">Trạng thái vận chuyển</label>
                 <div class="row">
                     <div class="col-lg-12">
-                        <p><%=order.getStatusDelivery()==0?"Chờ vận chuyển":order.getStatusDelivery()==1?"Đang vận chuyển":order.getStatusDelivery()==2?"Đã vận chuyển":"Đã hủy"%></p>
+                        <p style="width: 125px"><%=order.getStatusDelivery()==0?"Chờ vận chuyển":order.getStatusDelivery()==1?"Đang vận chuyển":order.getStatusDelivery()==2?"Đã vận chuyển":"Đã hủy"%></p>
                     </div>
                 </div>
             </div>
-            <div class="bottom-form">
-                <div class="submit" onclick="addImport()"> Thêm</div>
-                <div type="button" class="submit cant" onclick="hide()">Hủy</div>
-                <input id="jsonItem" name="jsonItem" value="" style="display: none">
+            <div class="bottom-form" style="gap: 1rem">
+                <%if (order.getStatus() ==0){
+                %>
+                <input type="button" onclick="setStatusOrder(this)" value="Xác nhận" content="1"  style="background-color: #c4ffc2;color: black;border: none;width: 100px;height: 45px">
+                <%} else if (order.getStatus() ==1) {
+                %>
+                <input type="button" onclick="setStatusOrder(this)" value="Giao hàng" content="2" style="background-color: #c2d3ff;color: black;border: none;width: 100px;height: 45px">
+                <%}%>
+
+                <% if (order.getStatus() <3 && order.getStatus()> -1){
+
+                %>
+                <input type="button" onclick="setStatusOrder(this)" value="Hủy" content="-1"  style="background-color: #ffc2c2;color: black;border: none;width: 100px;height: 45px">
+<%}%>
+                <input type="text" class="oder_status" style="display: none;">
+                <input type="text" class="oder_id"  value="<%=order.getId()%>" style="display: none;">
+<button type="submit" id="submit-button" style="display: none;"></button>
+            <%--                <div class="submit" onclick="addImport()"> Thêm</div>--%>
+<%--                <div type="button" class="submit cant" onclick="hide()">Hủy</div>--%>
+<%--                <input id="jsonItem" name="jsonItem" value="" style="display: none">--%>
             </div>
         </form>
     </div>
@@ -185,24 +219,45 @@
 <script src="js/admin.js"></script>
 
 <script>
+    function setStatusOrder(e) {
+        if (e.value === 'Xác nhận') {
+            $('.oder_status').val('1');
+        } else if (e.value === 'Giao hàng') {
+            $('.oder_status').val('2');
+        } else {
+            $('.oder_status').val('-1');
+        }
+        $('#submit-button').click();
+    }
+    $(document).ready(function () {
+        $('.form-order-detail').submit(function (event) {
+            event.preventDefault();
 
-    // $(document).ready(function () {
-    //     $('.detail-order').click(function () {
-    //         $.ajax({
-    //             url: "/detailOrder",
-    //             type: "get",
-    //             data: {
-    //                 id: $(this).val().trim()
-    //             },
-    //             success: function (data) {
-    //                 $('.form-detail').html(data)
-    //             },
-    //             error: function (xhr) {
-    //
-    //             }
-    //         })
-    //     })
-    // });
+            var orderStatus = $('.oder_status').val().trim();
+            var orderId = $('.oder_id').val().trim();
+
+            // Gửi yêu cầu AJAX đến server để lấy thông tin chi tiết đơn hàng
+            $.ajax({
+                url: "/detailOrder",
+                type: "post",
+                data: {
+                    id: orderId,
+                    status: orderStatus
+                },
+                success: function (data) {
+                    // Hiển thị thông tin chi tiết đơn hàng trong .form-detail
+                    location.reload();
+                },
+                error: function (xhr) {
+                    // Xử lý lỗi nếu cần thiết
+                }
+            });
+        });
+    });
+
+
+
+
 </script>
 </body>
 
