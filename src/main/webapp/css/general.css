@@ -8,6 +8,9 @@
 a {
     text-decoration: none !important;
 }
+.not-submit{
+    cursor: not-allowed;
+}
 
 .nav-page {
     justify-content: space-between;

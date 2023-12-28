@@ -1,26 +1,23 @@
 package controller.userprofile;
 
-import bean.Order;
+import bean.Request;
 import bean.User;
-import services.KeyServices;
-import services.OrderService;
+import services.RequestService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.List;
+import java.time.LocalDateTime;
 
-@WebServlet(name = "UserProfile", value = "/userProfile")
-public class UserProfile extends HttpServlet {
-
+@WebServlet(name = "AddRequest", value = "/userprofile/addRequest")
+public class AddRequest extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("auth");
-        List<Order> orders = OrderService.getInstance().getOrderListByUserId(user.getId());
-        request.setAttribute("orders", orders);
-
-        request.getRequestDispatcher("user-profile.jsp").forward(request, response);
+        String note = (String) request.getAttribute("note");
+        Request re = new Request(0, user, LocalDateTime.now(), null, note, RequestService.REQUESTING);
+        RequestService.getInstance().createRequest(re);
     }
 
     @Override
