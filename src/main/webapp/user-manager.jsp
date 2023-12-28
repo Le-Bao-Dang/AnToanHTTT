@@ -1,6 +1,8 @@
 <%@ page import="java.util.List" %>
+<%@ page import="bean.Request" %>
+<%@ page import="services.RequestService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
->
+
 <html lang="en">
 
 <head>
@@ -35,9 +37,12 @@
                     Trạng thái
                 </th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    Số điện thoại
+                    Điện thoại
                 </th>
                 <th class="text-secondary opacity-7"></th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    Bảo mật
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -49,7 +54,8 @@
                 <td>
                     <div class="d-flex px-2 py-1">
                         <div>
-                            <img src="<%=list.get(i).getAvatar().getSource()%>" class="avatar avatar-sm me-3 border-radius-lg"
+                            <img src="<%=list.get(i).getAvatar().getSource()%>"
+                                 class="avatar avatar-sm me-3 border-radius-lg"
                                  alt="user1">
                         </div>
                         <div class="d-flex flex-column justify-content-center">
@@ -84,14 +90,75 @@
                         Lưu thay đổi
                     </button>
                 </td>
+                <td class="align-middle">
+                    <% List<Request> r = RequestService.getInstance().getRequestByUserIdAD(list.get(i).getId());
+                        if (r.size() != 0) {%>
+                    <button type="button" class="show-request warning " value="<%=r.get(0).getId()%>"
+                            data-toggle="modal" data-target="#formRequest" onclick="show()">
+                        Xem
+                    </button>
+                    <%} else {%>
+                    <button type="button" class="show-request warning " style="display: none">
+                        Xem
+                    </button>
+                    <%}%>
+                </td>
+
             </tr>
             <%}%>
-
-
             </tbody>
+            <div class="modal fade" id="formAddRequest" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title uppercase" id="modalLongTitle">Yêu cầu bảo mật</h5>
+                            <span type="button" id="closeBtn" onclick="close()">&times;</span>
+                        </div>
+                        <p class="error"></p>
+                        <div class="modal-body">
+<%--                            <div class="form-add-address">--%>
+<%--                                <input class="input" type="text" name="input-note"--%>
+<%--                                       id="input-note"--%>
+<%--                                       value="" readonly >--%>
+<%--                            </div>--%>
+                        </div>
+<%--                        <div class="modal-footer">--%>
+<%--                            <button type="button" class="button button-close submit"--%>
+<%--                                    data-dismiss="modal"> Từ chối--%>
+<%--                            </button>--%>
+<%--                            <button type="button" class="button button-save save-request submit">--%>
+<%--                                Chấp nhận--%>
+<%--                            </button>--%>
+<%--                        </div>--%>
+                    </div>
+                </div>
+            </div>
         </table>
+
     </div>
 </div>
+
+<style>
+    #closeBtn {
+        border: none;
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+</style>
+
+<script>
+function show() {
+    document.getElementById('formAddRequest').style.opacity="1";
+    document.getElementById('formAddRequest').style.display="block";
+}
+function close() {
+    document.getElementById('formAddRequest').style.display="none";
+    // document.getElementById('formAddRequest').style.opacity="0";
+}
+</script>
 
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
