@@ -117,8 +117,9 @@
 
                     for (Order order : list) {
                 %>
-                <tr data-toggle="modal"
-                    data-target="#exampleModalCenterEdit">
+<%--                <tr data-toggle="modal"--%>
+<%--                    data-target="#exampleModalCenterEdit">--%>
+                <tr>
                     <td class="order-id"><%=order.getId()%>
                     </td>
                     <td class="name"><%=order.getUser().getName()%>
@@ -138,12 +139,17 @@
                     <% if (order.getStatusDelivery() == 1) {%>
                     <td> Giao hàng thành công
                     </td>
+                    <%}else{%>
+                    <td> Chờ bàn giao
+                    </td>
                     <%}%>
 
                     <td>
-                        <button class="detail-order submit" value="<%=order.getId()%>">Xem chi
-                            tiết
-                        </button>
+                        <form action="<%=request.getContextPath()%>/detailOrder">
+                            <button class="detail-order submit" type="text" name="orderId" value="<%=order.getId()%>">Xem chi
+                                tiết
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 <%}%>
@@ -173,21 +179,25 @@
     </div>
 
 
-    <div class="modal fade" id="exampleModalCenterEdit" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width: 100%;">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title uppercase" id="Title">Chi tiết đơn hàng</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body form-detail">
-                </div>
-            </div>
-        </div>
-    </div>
+<%--    <div class="modal fade" id="exampleModalCenterEdit" tabindex="-1" role="dialog"--%>
+<%--         aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width: 100%;">--%>
+<%--        <div class="modal-dialog modal-dialog-centered" role="document">--%>
+<%--            <div class="modal-content">--%>
+<%--                <div class="modal-header">--%>
+<%--                    <h5 class="modal-title uppercase" id="Title">Chi tiết đơn hàng</h5>--%>
+<%--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
+<%--                        <span aria-hidden="true">&times;</span>--%>
+<%--                    </button>--%>
+<%--                </div>--%>
+<%--                <div class="modal-body form-detail">--%>
+
+<%--                </div>--%>
+<%--                <div class="modal-footer">--%>
+<%--                    <button class="detail-order submit" type="button">Cập nhật trạng thái</button>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
@@ -275,6 +285,23 @@
             }
         })
     }
+    // $(document).ready(function () {
+    //     $('.detail-order').click(function () {
+    //         $.ajax({
+    //             url: "/detailOrder",
+    //             type: "get",
+    //             data: {
+    //                 id: $(this).val().trim()
+    //             },
+    //             success: function (data) {
+    //                 $('.form-detail').html(data)
+    //             },
+    //             error: function (xhr) {
+    //
+    //             }
+    //         })
+    //     })
+    // });
 </script>
 </body>
 

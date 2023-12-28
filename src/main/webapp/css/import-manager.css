@@ -180,3 +180,24 @@
 .edit-product{
 
 }
+
+.status-red{
+    background-color: #ffc2c2;
+    color: black;
+}
+.status-yellow{
+    background-color: #fff7c2;
+    color: black;
+}
+.status-green{
+    background-color: #c4ffc2;
+    color: black;
+}
+.status-blue{
+    background-color: #c2d3ff;
+    color: black;
+}
+.status-white{
+    background-color: #ddc2ff;
+    color: black;
+}

@@ -176,9 +176,9 @@
                                     <td><%=Format.formatDate(order.getCreateDate())%>
                                     </td>
                                     <td><%=Format.format(order.getTotal())%> VND</td>
-                                    <td><%=order.getTotal()%>
+                                    <td><%=order.getStatus()==0?"Chờ xác nhận":order.getStatus()==1?"Đã xác nhận":order.getStatus()==2?"Đang giao hàng":order.getStatus()==3?"Đã nhận hàng":"Đã hủy"%>
                                     </td>
-                                    <td><%=order.getStatusDelivery()%>
+                                    <td><%=order.getStatusDelivery()==0?"Chờ vận chuyển":order.getStatusDelivery()==1?"Đang vận chuyển":order.getStatusDelivery()==2?"Đã vận chuyển":"Đã hủy"%>
                                     </td>
                                     <td>
                                         <a href="/showOrderDetail?orderId=<%=order.getId()%>"
