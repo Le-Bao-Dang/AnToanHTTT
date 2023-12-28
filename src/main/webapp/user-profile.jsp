@@ -55,6 +55,12 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="security-tab" data-toggle="tab" data-target="#security" type="button"
+                                role="tab" aria-controls="profile" aria-selected="false" value="<%=user.getId()%>">
+                            <i class="fa-solid fa-location-dot"></i>Bảo mật
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
                         <button class="nav-link" id="logout-tab" data-toggle="tab" data-target="#messages" type="button"
                                 role="tab" aria-controls="messages" aria-selected="false"><i
                                 class="fa-solid fa-right-from-bracket"></i>Đăng xuất
@@ -206,6 +212,10 @@
         <!-- end footer -->
     </div>
 </div>
+
+<script>
+    
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

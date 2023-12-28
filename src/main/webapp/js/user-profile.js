@@ -40,6 +40,9 @@ $(document).ready(function () {
     $('#logout-tab').click(function () {
         window.location = "http://localhost:8080/logOut";
     })
+    $('#security-tab').click(function () {
+        window.location = "http://localhost:8080/showSecurity"
+    })
 
     $('#input-avt-user').change(function () {
             let formData = new FormData();
