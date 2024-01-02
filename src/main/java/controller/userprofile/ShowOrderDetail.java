@@ -18,12 +18,13 @@ public class ShowOrderDetail extends HttpServlet {
         int orderId = Integer.parseInt(request.getParameter("orderId"));
         User user = (User) request.getSession().getAttribute("auth");
         Order order = OrderService.getInstance().getOrderByOrderId(orderId);
-        order = FormatOrder.getInstance().format(order);
+
         System.out.println(order.toString());
 
         KeyServices ks = new KeyServices();
 
-        if (ks.readPublicKeyFromDatabase(user.getId())){
+        if (ks.checkPublicKeyWithOrderCreate(order,user.getId())){
+            order = FormatOrder.getInstance().format(order);
             if(SignVerifyServices.getInstance().verifyOrder(order, ks.exportPublicKey())){
                 request.setAttribute("verify", "Verified");
             }else{

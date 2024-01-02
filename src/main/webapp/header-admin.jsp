@@ -55,6 +55,7 @@
         <li><a class="nav-item" href="/vendorManager">Quản lý nhà cung cấp</a></li>
         <li><a class="nav-item" href="/importManager">Nhập kho</a></li>
         <li><a class="nav-item" href="/generalManager">Quản lý chung</a></li>
+        <li><a class="nav-item" href="/securityRequestManager">Yêu cầu bảo mật</a></li>
         <li><a class="nav-item logout" href="/logOut" id="logout">Đăng xuất</a></li>
     </ul>
 </div>

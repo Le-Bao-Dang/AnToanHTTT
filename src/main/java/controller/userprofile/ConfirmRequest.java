@@ -20,18 +20,21 @@ public class ConfirmRequest extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int i = Integer.parseInt(request.getParameter("i"));
-        int rId = Integer.parseInt(request.getParameter("rId"));
+        int rId = Integer.parseInt(request.getParameter("id"));
         Request r = RequestService.getInstance().getRequestById(rId);
         if (i == -1) {
             RequestService.getInstance().setStatus(rId, -1);
             response.sendRedirect("/userManager");
         }
         // Khóa key hiện tại
-        KeyServices.getInstance().lockKeyforUser(r.getUser().getId());
-        System.out.println("đã khóa key");
+
 
         // Tạo key mới
         KeyServices ks = new KeyServices();
+
+        KeyServices.getInstance().lockKeyforUser(r.getUser().getId());
+        System.out.println("đã khóa key");
+
         ks.createKey();
         ks.addPublicKey(r.getUser().getId());
         System.out.println("đã thêm key mới");
