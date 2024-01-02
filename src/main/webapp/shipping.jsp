@@ -225,9 +225,11 @@
             method: "POST",
             body: formData
         }).then((data)=>{
+            alert('The private key file upload with Ajax and Java was a success!');
+        }).catch((error ) =>{
+            alert('The file upload with Ajax and Java was a fail!');
+        });
 
-        }).catch();
-        alert('The file upload with Ajax and Java was a success!');
     }
     function getFileName() {
         var input = $('#ajaxfile')[0];

@@ -25,7 +25,7 @@ public class DetailOrder extends HttpServlet {
         List<LineItem> orderDetails = LineItemService.getInstance().getListLineItemByOrderId(order.getId());
         KeyServices ks = new KeyServices();
 
-        if (ks.readPublicKeyFromDatabase(user.getId())){
+        if (ks.checkPublicKeyWithOrderCreate(order,user.getId())){
             if(SignVerifyServices.getInstance().verifyOrder(FormatOrder.getInstance().format(order), ks.exportPublicKey())){
                 request.setAttribute("verify", true);
             }else{

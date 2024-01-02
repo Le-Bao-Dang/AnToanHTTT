@@ -1,6 +1,8 @@
 package services;
 
 
+import bean.Key;
+import bean.Order;
 import db.JDBIConnector;
 
 import java.nio.file.Files;
@@ -11,6 +13,7 @@ import java.security.spec.X509EncodedKeySpec;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class KeyServices {
@@ -110,7 +113,7 @@ public class KeyServices {
 //    }
     public void lockKeyforUser(int idKey) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("UPDATE keys set status= -1, locked_date =? where id=? ")
+            return handle.createUpdate("UPDATE `keys` SET status = -1, locked_date = ? WHERE user_id = ? AND status = 0\n")
                     .bind(0, LocalDateTime.now())
                     .bind(1, idKey).execute();
         });
@@ -160,6 +163,55 @@ public class KeyServices {
             System.out.println("Khóa public không hợp lệ");
             return false;
         }
+    }
+    public boolean checkPublicKeyWithOrderCreate(Order o, int user_id){
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+        try {
+            List<Key> base64PublicKeys = JDBIConnector.get().withHandle(handle -> {
+                return handle.createQuery("SELECT * FROM `keys` WHERE user_id = :userId AND status = -1 ORDER BY locked_date DESC ")
+                        .bind("userId", user_id)
+                        .mapToBean(Key.class)
+                        .stream().collect(Collectors.toList());
+            });
+            int count = 0;
+            Key newKey = new Key();
+            for (Key k: base64PublicKeys) {
+                if (k.getLocked_date() != null){
+                  int date= o.getCreateDate().compareTo(k.getLocked_date());
+//                    System.out.println(date);
+                  if (date < 0){
+                      count ++;
+                      newKey  = k;
+
+                  }
+                }
+            }
+            if (count ==0){
+                return readPublicKeyFromDatabase(user_id);
+            }else{
+                if (checkPublicKeyValid(newKey.getPublic_key_base64())) {
+                    System.out.println("Khóa public thành công");
+                    return true;
+                }else{
+                    System.out.println("Khóa public không hợp lệ");
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Lỗi đọc khóa public");
+            return false;
+
+        }
+
+    }
+
+    public static void main(String[] args) {
+//        Order order = OrderService.getInstance().getOrderByOrderId(32);
+//        order = FormatOrder.getInstance().format(order);
+//        KeyServices ks = new KeyServices();
+//        ks.publicKeyWithOrderCreate(order,17);
+//        System.out.println(ks.exportStringPublicKey());
     }
 
 

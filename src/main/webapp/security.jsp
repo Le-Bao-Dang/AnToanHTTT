@@ -93,10 +93,46 @@
                                             <div class="security">
                                                 Bạn đã bị lộ khóa? Yêu cầu tạo khóa mới!
                                             </div>
-                                            <% Request re = (Request) request.getAttribute("request");%>
-                                            <div class="security">
-                                                Yêu cầu của
-                                                bạn <%= re.getStatusString()%>
+                                            <% List<Request> re = (List<Request>) request.getAttribute("request") ;%>
+
+                                            <div class="order-list form">
+                                                <table class="table order-list-table">
+                                                    <h3>Danh sách yêu cầu của bạn</h3>
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="colOrderId">Mã Yêu cầu</th>
+                                                        <th scope="colOrderDate">Ngày tạo</th>
+                                                        <th scope="colTotal">Ngày xác nhận</th>
+                                                        <th scope="colSttPay">Trạng thái yêu cầu</th>
+                                                        <th scope="colSttDelivery">ghi chú</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <%
+                                                        for (Request r : re) {
+                                                    %>
+
+                                                    <tr>
+                                                        <th scope="row">#<%= r.getId()%>
+                                                        </th>
+                                                        <td><%=Format.formatDate(r.getCreate_at())%>
+                                                        </td>
+                                                        <td><%=r.getConfim_at()!=null?Format.formatDate(r.getConfim_at()):""%></td>
+                                                        <td>
+                                                            <%=r.getStatus()==0?"Đang duyệt":r.getStatus()==-1?"Không được duyệt":"Đã duyệt"%>
+
+                                                        </td>
+                                                        <td><%=r.getNote()%>
+                                                        </td>
+
+
+                                                    </tr>
+
+                                                    <%}%>
+
+
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                         <div class="contain-address right">
@@ -104,9 +140,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <%if (re.getStatus() == 0) {%>
+                            <%if (re.size() > 0 && re.get(re.size()-1).getStatus() == 0) {%>
                             <button type="button" class=" button submit not-submit">
-                                Đã gửi yêu cầu
+                               Có 1 yêu cầu đang chờ duyệt
                             </button>
                             <%} else {%>
                             <button type="button" class="btn-add-request button submit" id="add-request"
