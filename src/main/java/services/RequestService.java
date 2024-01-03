@@ -4,7 +4,10 @@ import bean.Request;
 import bean.User;
 import db.JDBIConnector;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class RequestService {
@@ -27,7 +30,7 @@ public class RequestService {
 
     public List<Request> getListRequest() {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Request> list = handle.createQuery("SELECT id, create_at,confirm_at,note,status from request ").mapToBean(Request.class).stream().collect(Collectors.toList());
+            List<Request> list = handle.createQuery("SELECT id, create_at,confirm_at,note,status from request ORDER BY create_at Asc ").mapToBean(Request.class).stream().collect(Collectors.toList());
             for (Request r : list) {
                 r.setUser(getUserbyRequestId(r.getId()));
             }
@@ -35,10 +38,12 @@ public class RequestService {
         });
     }
 
-    public Request getRequestByUserId(int id) {
+    public List<Request> getRequestByUserId(int id) {
         return JDBIConnector.get().withHandle(handle -> {
-            Request r = handle.createQuery("SELECT r.id,create_at,confirm_at,note,r.status from request r join user u on r.user_id =u.id ORDER BY create_at DESC LIMIT 1").mapToBean(Request.class).one();
-            r.setUser(getUserbyRequestId(r.getId()));
+            List<Request> r = handle.createQuery("SELECT r.id,create_at,confirm_at,note,r.status from request r where " +
+                    "r.user_id =? ").bind(0,id).mapToBean(Request.class).stream().collect(Collectors.toList());
+
+
             return r;
         });
     }
@@ -64,12 +69,14 @@ public class RequestService {
     }
 
     public void createRequest(Request request) {
+        Random r = new Random();
+        int id = r.nextInt(0,100000) + r.nextInt(100000,999999);
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("INSERT INTO request(id,user_id,create_at,confirm_at,note, status) values(?,?,?,?,?,?)")
-                    .bind(0, getMaxId() + 1)
+                    .bind(0, id)
                     .bind(1, request.getUser().getId())
                     .bind(2, request.getCreate_at())
-                    .bind(3, request.getConfim_at())
+                    .bind(3, request.getConfirm_at())
                     .bind(4, request.getNote())
                     .bind(5, request.getStatus())
                     .execute();
@@ -83,17 +90,31 @@ public class RequestService {
                     .bind(1, id)
                     .execute();
         });
+        if (status >0) confirmRequest(id);
     }
+    public void confirmRequest(int id) {
+        LocalDateTime nowDateTime = LocalDateTime.now(); // Đây là ví dụ, bạn có thể thay đổi thành đối tượng LocalDateTime của bạn
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
+        String createFormattedDateTime = nowDateTime.format(formatter);
+        LocalDateTime confirmTime = LocalDateTime.parse(createFormattedDateTime, formatter);
+
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE `request` set confirm_at=? where id=?")
+                    .bind(0, confirmTime)
+                    .bind(1, id)
+                    .execute();
+        });
+    }
     public User getUserbyRequestId(int id) {
         User user = JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT u.id, name, phone, email, `password`,variety, u.`status`  FROM user u join request r on u.id = r.user_id where r.id = " + id).mapToBean(User.class).one();
         });
-        user.setAvatar(ImageService.getInstance().getImageByUserId(id));
-        user.setListOrderInformation(InformationService.getInstance().getListInformationByUserId(id));
-        user.setListCartItem(CartService.getInstance().getCartOfUser(id));
-        user.setListOrder(OrderService.getInstance().getOrderListByUserId(id));
-        user.setIdThirdParty(ThirdPartyService.getInstance().getIdThirdPartyByUserId(id));
+        user.setAvatar(ImageService.getInstance().getImageByUserId(user.getId()));
+        user.setListOrderInformation(InformationService.getInstance().getListInformationByUserId(user.getId()));
+        user.setListCartItem(CartService.getInstance().getCartOfUser(user.getId()));
+        user.setListOrder(OrderService.getInstance().getOrderListByUserId(user.getId()));
+        user.setIdThirdParty(ThirdPartyService.getInstance().getIdThirdPartyByUserId(user.getId()));
         return user;
     }
 

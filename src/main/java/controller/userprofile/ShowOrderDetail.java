@@ -17,13 +17,14 @@ public class ShowOrderDetail extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int orderId = Integer.parseInt(request.getParameter("orderId"));
         User user = (User) request.getSession().getAttribute("auth");
-        Order order = OrderService.getInstance().getOrderByOrderId(orderId);
-        order = FormatOrder.getInstance().format(order);
-        System.out.println(order.toString());
+        Order oldOrder = OrderService.getInstance().getOrderByOrderId(orderId);
+
+        System.out.println(oldOrder.toString());
 
         KeyServices ks = new KeyServices();
 
-        if (ks.readPublicKeyFromDatabase(user.getId())){
+        if (ks.checkPublicKeyWithOrderCreate(oldOrder,user.getId())){
+            Order order = FormatOrder.getInstance().format(oldOrder);
             if(SignVerifyServices.getInstance().verifyOrder(order, ks.exportPublicKey())){
                 request.setAttribute("verify", "Verified");
             }else{
@@ -34,14 +35,14 @@ public class ShowOrderDetail extends HttpServlet {
         }
 
 
-        request.setAttribute("order", order);
+        request.setAttribute("order", oldOrder);
 
         List<HistoryPrice> listPrice = new ArrayList<>();
 
-        for(LineItem lineItem: order.getListOrderItem()){
+        for(LineItem lineItem: oldOrder.getListOrderItem()){
             System.out.println(lineItem.getProduct().getId());
-            System.out.println(order.getCreateDate());
-            listPrice.add(HistoryPriceService.getInstance().getPriceOfProductAtTime(lineItem.getProduct().getId(), order.getCreateDate()));
+            System.out.println(oldOrder.getCreateDate());
+            listPrice.add(HistoryPriceService.getInstance().getPriceOfProductAtTime(lineItem.getProduct().getId(), oldOrder.getCreateDate()));
             System.out.println(listPrice);
         }
 
@@ -52,6 +53,15 @@ public class ShowOrderDetail extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int orderId = Integer.parseInt(request.getParameter("id"));
+        int orderStatus = Integer.parseInt(request.getParameter("status"));
 
+        // Thực hiện xử lý dữ liệu (ví dụ: cập nhật trạng thái đơn hàng trong cơ sở dữ liệu)
+        boolean done = OrderService.getInstance().updateStatus(orderId,orderStatus);
+        if (done){
+            response.getWriter().write("Xử lý thành công!");
+        }else{
+            System.out.println("Lỗi");
+        }
     }
 }

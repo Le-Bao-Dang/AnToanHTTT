@@ -7,7 +7,7 @@ public class Request implements Serializable {
     private int id;
     private User user;
     private LocalDateTime create_at;
-    private LocalDateTime confim_at;
+    private LocalDateTime confirm_at;
     private String note;
     private int status;
 
@@ -15,11 +15,11 @@ public class Request implements Serializable {
 
     }
 
-    public Request(int id, User user, LocalDateTime create_at, LocalDateTime confim_at, String note, int status) {
+    public Request(int id, User user, LocalDateTime create_at, LocalDateTime confirm_at, String note, int status) {
         this.id = id;
         this.user = user;
         this.create_at = create_at;
-        this.confim_at = confim_at;
+        this.confirm_at = confirm_at;
         this.note = note;
         this.status = status;
     }
@@ -49,12 +49,12 @@ public class Request implements Serializable {
         this.create_at = create_at;
     }
 
-    public LocalDateTime getConfim_at() {
-        return confim_at;
+    public LocalDateTime getConfirm_at() {
+        return confirm_at;
     }
 
-    public void setConfim_at(LocalDateTime confim_at) {
-        this.confim_at = confim_at;
+    public void setConfirm_at(LocalDateTime confirm_at) {
+        this.confirm_at = confirm_at;
     }
 
     public String getNote() {
@@ -91,7 +91,7 @@ public class Request implements Serializable {
                 "id=" + id +
                 ", user=" + user +
                 ", create_at=" + create_at +
-                ", confim_at=" + confim_at +
+                ", confim_at=" + confirm_at +
                 ", note='" + note + '\'' +
                 ", status=" + status +
                 '}';

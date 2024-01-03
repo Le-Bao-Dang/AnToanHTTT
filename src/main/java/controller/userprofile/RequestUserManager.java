@@ -16,21 +16,7 @@ public class RequestUserManager extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Request r = RequestService.getInstance().getRequestById(id);
         System.out.println("oke");
-        response.getWriter().println(" <div class=\"\">\n" +
-                "                            <div class=\"form-add-address\">\n" +
-                "                                <input class=\"input\" type=\"text\" name=\"input-note\"\n" +
-                "                                       id=\"input-note\"\n" +
-                "                                       value=\"" + r.getNote() + "\" readonly >\n" +
-                "                            </div>\n" +
-                "                        </div>\n" +
-                "                        <div class=\"modal-footer\">\n" +
-                "                            <button type=\"button\" class=\"button button-close submit refuse-request\"\n" +
-                "                                    data-dismiss=\"modal\" value=\"" + r.getId() + "\"> Từ chối\n" +
-                "                            </button>\n" +
-                "                            <button type=\"button\" class=\"button button-save confirm-request submit\" value=\"" + r.getId() + "\">\n" +
-                "                                Chấp nhận\n" +
-                "                            </button>\n" +
-                "                        </div>");
+
     }
 
     @Override

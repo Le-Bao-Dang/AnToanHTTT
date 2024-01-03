@@ -197,9 +197,40 @@
 
 </div>
 
-
+    <div class="overlay" id="overlay">
+        <div class="spinner"></div>
+    </div>
 </div>
+<style>
 
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.7);
+        display: none;
+    }
+
+    .spinner {
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -220,6 +251,7 @@
 
 <script>
     function setStatusOrder(e) {
+        $("#overlay").show();
         if (e.value === 'Xác nhận') {
             $('.oder_status').val('1');
         } else if (e.value === 'Giao hàng') {
@@ -246,9 +278,11 @@
                 },
                 success: function (data) {
                     // Hiển thị thông tin chi tiết đơn hàng trong .form-detail
+                    $("#overlay").hide();
                     location.reload();
                 },
                 error: function (xhr) {
+                    $("#overlay").hide();
                     // Xử lý lỗi nếu cần thiết
                 }
             });
