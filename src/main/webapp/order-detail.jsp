@@ -82,7 +82,7 @@
                     <div class="tab-pane active" id="infor" role="tabpanel" aria-labelledby="infor-tab">
                         <div class="inf">
                             <h3>Thông tin địa chỉ</h3>
-                            <div class="inf container">
+                            <div class="inf container" style="display: flex; flex-direction: row">
                                 <ul class="inf-left">
                                     <li>Họ và tên: <%=order.getInformation().getName()%>
                                     </li>
@@ -92,7 +92,20 @@
                                         chỉ: <%=order.getInformation().getAddress().getDetail() + ", " + order.getInformation().getAddress().getDistrict() + ", " + order.getInformation().getAddress().getCity()%>
                                     </li>
                                 </ul>
-
+                                <ul class="inf-left" >
+                                    <li><div style="width: 100px; height: 25px; background-color: <%=verify.equals("Verified")?"#c8ffc9":"#ffc8c8"%>;text-align: center; border-radius: 25%"><p><%=verify%></p></div>
+                                    </li>
+                                    <% if (order.getStatus() !=-1 && verify.equals("Not Verified")){%>
+                                    <li>---------------</li>
+                                    <li><form class="form-order-detail">
+                                        <input type="button" id="buttonSubmit" value="Hủy" content="-1" style="width: 100px; height: 35px;" onclick="setStatusOrder(this)"></input>
+                                        <input type="text" class="oder_status" style="display: none;">
+                                        <input type="text" class="oder_id"  value="<%=order.getId()%>" style="display: none;">
+                                        <button type="submit" id="submit-button" style="display: none;"></button>
+                                    </form>
+                                    </li>
+                                    <%}%>
+                                </ul>
                             </div>
                         </div>
 
@@ -105,7 +118,7 @@
                                     <th scope="col">Đơn giá</th>
                                     <th scope="col">Số lượng</th>
                                     <th scope="col">Thành tiền</th>
-                                    <th scope="col">Xác minh</th>
+                                    <th scope="col">Trạng thái</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -139,7 +152,7 @@
                                     </td>
                                     <%total += listPrice.get(i).getPriceSale() * orderItems.get(i).getQuantity();%>
                                     <%}%>
-                                    <td><%=verify%></td>
+                                    <td><%=order.getStatus()==0?"Chờ xác nhận":order.getStatus()==1?"Đã xác nhận":order.getStatus()==2?"Đang giao hàng":order.getStatus()==3?"Đã nhận hàng":"Đã hủy"%>
                                 </tr>
                                 <%}%>
 
@@ -255,15 +268,49 @@
                 </div>
             </div>
         </div>
-
+        <div class="overlay" id="overlay">
+            <div class="spinner"></div>
+        </div>
         <!-- footer -->
 
         <%@include file="footer.jsp" %>
 
         <!-- end footer -->
     </div>
+    <div class="overlay" id="overlay">
+        <div class="spinner"></div>
+    </div>
 </div>
+<style>
 
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.7);
+        display: none;
+    }
+
+    .spinner {
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -271,9 +318,50 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
         crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/general.js"></script>
 <script src="js/user-profile.js"></script>
 <script src="js/order-detail.js"></script>
+<script>
+    function setStatusOrder(e) {
+
+        $('.oder_status').val('-1');
+
+        $('#submit-button').click();
+    }
+    $(document).ready(function () {
+        $('.form-order-detail').submit(function (event) {
+            event.preventDefault();
+            $("#overlay").show();
+            var orderStatus = $('.oder_status').val().trim();
+            var orderId = $('.oder_id').val().trim();
+
+            // Gửi yêu cầu AJAX đến server để lấy thông tin chi tiết đơn hàng
+            $.ajax({
+                url: "/showOrderDetail",
+                type: "post",
+                data: {
+                    id: orderId,
+                    status: orderStatus
+                },
+                success: function (data) {
+                    // Hiển thị thông tin chi tiết đơn hàng trong .form-detail
+                    $("#overlay").hide();
+                    location.reload();
+                },
+                error: function (xhr) {
+                    $("#overlay").hide();
+
+                    // Xử lý lỗi nếu cần thiết
+                }
+            });
+        });
+    });
+
+
+</script>
 </body>
 
 </html>
