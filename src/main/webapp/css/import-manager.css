@@ -1,0 +1,203 @@
+#detail-import {
+    width: 100%;
+    height: auto;
+    display: none;
+
+}
+
+
+#detail-import .contents {
+    background: white;
+    padding: 40px;
+    position: absolute;
+    top: 147px;
+    left: 251px;
+    z-index: 50;
+    border: 1px solid black;
+    width: 1000px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+#detail-import h1, #detail-import .date, #detail-import .id {
+    text-align: center;
+    margin-bottom: -5px;
+}
+
+#detail-import .form {
+    margin-top: 20px;
+    margin-left: 0;
+}
+
+#detail-import table {
+    margin-bottom: 20px;
+}
+
+#detail-import table, #detail-import th, #detail-import td {
+    border: 1px solid black;
+}
+
+#detail-import th {
+    text-align: center;
+    width: 400px;
+    justify-content: center;
+    justify-items: center;
+}
+
+#detail-import td {
+    padding: 5px;
+}
+
+.button-close {
+    float: right;
+}
+
+.container header {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 500;
+    text-align: center;
+}
+
+.container .form {
+    margin-top: 30px;
+}
+
+.form .input-box {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.input-box label {
+    color: #333;
+}
+
+.form :where(.input-box input, .select-box) {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+    color: #707070;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    padding: 0 15px;
+}
+
+.input-box input:focus {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.form .column {
+    display: flex;
+    column-gap: 15px;
+}
+
+.address :where(input, .select-box) {
+    margin-top: 15px;
+}
+
+.bottom-form {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.form button {
+    margin-top: 30px;
+    transition: all 0.2s ease;
+    background: var(--color3);
+}
+
+.form button:hover {
+    background: var(--color4);
+}
+#add-Import{
+    display: none;
+}
+
+#add-Import section{
+   z-index: 100;
+}
+
+#add-Import form {
+    width: 794px;
+
+}
+
+#import-group .import-item td {
+    padding: 5px;
+    width: 222px;
+    margin-right: 20px;
+}
+
+#import-group .import-item td .buttonItem {
+    display: flex;
+}
+
+#import-group .import-item td .buttonItem p {
+    width: 10px;
+    height: 10px;
+    margin-left: 20px;
+
+}
+#import-group .import-item td .buttonItem p i{
+    padding: 3px;
+}
+#import-group .import-item td .buttonItem .plus i{
+    color: green;
+}
+#import-group .import-item td .buttonItem .minus i{
+    color: red;
+}
+
+.tableImport {
+    margin-top: 20px;
+}
+
+.stt {
+    text-align: center;
+}
+#border-import{
+    position: absolute;
+    top: 112px;
+    padding: 20px;
+    background: white;
+    border: 1px solid;
+    height: auto;
+    left: 324px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+}
+.close{
+    margin-top: -26px;
+    position: relative;
+    top: -50px;
+    height: 0px;
+}
+.plus{
+    text-align: right;
+    margin-right: 117px;
+
+}
+.edit-product{
+
+}
+
+.status-red{
+    background-color: #ffc2c2;
+    color: black;
+}
+.status-yellow{
+    background-color: #fff7c2;
+    color: black;
+}
+.status-green{
+    background-color: #c4ffc2;
+    color: black;
+}
+.status-blue{
+    background-color: #c2d3ff;
+    color: black;
+}
+.status-white{
+    background-color: #ddc2ff;
+    color: black;
+}
