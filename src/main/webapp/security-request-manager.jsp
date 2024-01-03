@@ -75,10 +75,10 @@
                         <%=r.getStatus()==0?"Đang chờ duyệt":r.getStatus()==-1?"Không được duyệt":"Đã duyệt"%>
                 </td>
                 <td class="align-middle text-center text-sm">
-                    <%=r.getConfim_at()!=null?Format.formatDate(r.getConfim_at()):""%>
+                    <%=r.getConfirm_at()!=null?Format.formatDate(r.getConfirm_at()):""%>
                 </td>
                 <td class="align-middle">
-               <%=r.getNote()%>
+               <%=r.getNote()==null?"":r.getNote()%>
                 </td>
                 <td class="align-middle">
                     <%if (r.getStatus() == 0){%>
@@ -125,6 +125,9 @@
         </table>
 
     </div>
+    <div class="overlay" id="overlay">
+        <div class="spinner"></div>
+    </div>
 </div>
 
 <style>
@@ -134,6 +137,33 @@
         float: right;
         font-size: 28px;
         font-weight: bold;
+    }
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.7);
+        display: none;
+    }
+
+    .spinner {
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
 </style>
 
@@ -188,7 +218,7 @@ function close() {
         $('.confirm-request').click(function () {
             let id = $(this).val().trim();
             let i = 1;
-
+            $("#overlay").show();
             $.ajax({
 
                 url: "/userprofile/confirmRequest",
@@ -198,9 +228,11 @@ function close() {
                     i:i
                 },
                 success: function (response) {
+                    $("#overlay").hide();
                     location.reload();
                 },
                 error: function (xhr) {
+                    $("#overlay").hide();
                     //Do Something to handle error
                 }
             });
@@ -208,6 +240,7 @@ function close() {
         $('.refuse-request').click(function () {
             let id = $(this).val().trim();
             let i = -1;
+            $("#overlay").show();
             // alert(id)
             $.ajax({
 
@@ -218,9 +251,11 @@ function close() {
                     i:i
                 },
                 success: function (response) {
+                    $("#overlay").hide();
                     location.reload();
                 },
                 error: function (xhr) {
+                    $("#overlay").hide();
                     //Do Something to handle error
                 }
             });
