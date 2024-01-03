@@ -62,6 +62,7 @@ public class SignUp extends HttpServlet {
             UserService.getInstance().addUser(user);
             int cuser = UserService.getInstance().getIdByUserName(user.getEmail());
             request.setAttribute("cuser", cuser);
+            request.setAttribute("email",email);
             MailService.sendMail("Đăng ký tài khoản", "Bạn đã đăng ký tài khoản thành công, chào mừng đến với CRAFTS, chúc bạn có một trải nghiệm mua sắm vui vẻ!", email);
             request.getRequestDispatcher("/downloadPrivateKey").forward(request, response);
 

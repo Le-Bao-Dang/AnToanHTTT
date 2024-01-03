@@ -4,6 +4,8 @@ import bean.Request;
 import bean.User;
 import db.JDBIConnector;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -28,7 +30,7 @@ public class RequestService {
 
     public List<Request> getListRequest() {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Request> list = handle.createQuery("SELECT id, create_at,confirm_at,note,status from request ").mapToBean(Request.class).stream().collect(Collectors.toList());
+            List<Request> list = handle.createQuery("SELECT id, create_at,confirm_at,note,status from request ORDER BY create_at Asc ").mapToBean(Request.class).stream().collect(Collectors.toList());
             for (Request r : list) {
                 r.setUser(getUserbyRequestId(r.getId()));
             }
@@ -74,7 +76,7 @@ public class RequestService {
                     .bind(0, id)
                     .bind(1, request.getUser().getId())
                     .bind(2, request.getCreate_at())
-                    .bind(3, request.getConfim_at())
+                    .bind(3, request.getConfirm_at())
                     .bind(4, request.getNote())
                     .bind(5, request.getStatus())
                     .execute();
@@ -88,8 +90,22 @@ public class RequestService {
                     .bind(1, id)
                     .execute();
         });
+        if (status >0) confirmRequest(id);
     }
+    public void confirmRequest(int id) {
+        LocalDateTime nowDateTime = LocalDateTime.now(); // Đây là ví dụ, bạn có thể thay đổi thành đối tượng LocalDateTime của bạn
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
+        String createFormattedDateTime = nowDateTime.format(formatter);
+        LocalDateTime confirmTime = LocalDateTime.parse(createFormattedDateTime, formatter);
+
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE `request` set confirm_at=? where id=?")
+                    .bind(0, confirmTime)
+                    .bind(1, id)
+                    .execute();
+        });
+    }
     public User getUserbyRequestId(int id) {
         User user = JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT u.id, name, phone, email, `password`,variety, u.`status`  FROM user u join request r on u.id = r.user_id where r.id = " + id).mapToBean(User.class).one();
