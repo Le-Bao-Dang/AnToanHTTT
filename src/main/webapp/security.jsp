@@ -117,7 +117,7 @@
                                                         </th>
                                                         <td><%=Format.formatDate(r.getCreate_at())%>
                                                         </td>
-                                                        <td><%=r.getConfim_at()!=null?Format.formatDate(r.getConfim_at()):""%></td>
+                                                        <td><%=r.getConfirm_at()!=null?Format.formatDate(r.getConfirm_at()):""%></td>
                                                         <td>
                                                             <%=r.getStatus()==0?"Đang duyệt":r.getStatus()==-1?"Không được duyệt":"Đã duyệt"%>
 
