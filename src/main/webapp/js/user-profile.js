@@ -35,13 +35,13 @@ $(document).ready(function () {
 
 
     $('#address-tab').click(function () {
-        window.location = "http://localhost:8080/showAddress";
+        window.location = "https://shopbanhangonlineatbm.online/showAddress";
     })
     $('#logout-tab').click(function () {
-        window.location = "http://localhost:8080/logOut";
+        window.location = "https://shopbanhangonlineatbm.online/logOut";
     })
     $('#security-tab').click(function () {
-        window.location = "http://localhost:8080/showSecurity"
+        window.location = "https://shopbanhangonlineatbm.online/showSecurity"
     })
 
     $('#input-avt-user').change(function () {

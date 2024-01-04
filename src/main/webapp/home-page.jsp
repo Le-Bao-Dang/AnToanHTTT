@@ -22,6 +22,8 @@
 
     <link rel="stylesheet" href="css/general.css">
     <link rel="stylesheet" href="css/home-page.css">
+
+
 </head>
 
 <body>
@@ -61,7 +63,7 @@
     <div class="favourite top-product">
         <% for (Product product : favouriteProducts) { %>
         <div class="top-product-img">
-            <a href="http://localhost:8080/detail-product?id=<%=product.getId()%>"><img
+            <a href="<%=request.getContextPath()%>/detail-product?id=<%=product.getId()%>"><img
                     src="<%= product.getListImage().get(0).getSource()%>" alt=""></a>
         </div>
 
@@ -80,7 +82,7 @@
         <div class="product">
             <div class="thumbnail">
                 <div class="cont-item ">
-                    <a href="http://localhost:8080/detail-product?id=<%=product.getId()%>"><img
+                    <a href="<%=request.getContextPath()%>/detail-product?id=<%=product.getId()%>"><img
                             src="<%=product.getListImage().get(0).getSource()%>"
                             alt="">
                     </a>
@@ -89,7 +91,7 @@
                 <div class="caption">
 
                     <h3>
-                        <a href="http://localhost:8080/detail-product?id=<%=product.getId()%>"><%=product.getName()%>
+                        <a href="<%=request.getContextPath()%>/detail-product?id=<%=product.getId()%>"><%=product.getName()%>
                         </a></h3>
 
 
@@ -136,14 +138,14 @@
                 <div class="thumbnail">
                     <div class="cont-item ">
 
-                        <a href="http://localhost:8080/detail-product?id=<%=product.getId()%>"><img
+                        <a href="<%=request.getContextPath()%>/detail-product?id=<%=product.getId()%>"><img
                                 src="<%=product.getListImage().get(0).getSource()%>"></a>
                     </div>
 
                     <div class="caption">
 
                         <h3>
-                            <a href="http://localhost:8080/detail-product?id=<%=product.getId()%>"><%=product.getName()%>
+                            <a href="<%=request.getContextPath()%>/detail-product?id=<%=product.getId()%>"><%=product.getName()%>
                             </a></h3>
                         <div class="ratting">
                             <% int count = product.getRate();
@@ -181,14 +183,14 @@
                 <div class="thumbnail">
                     <div class="cont-item ">
 
-                        <a href="http://localhost:8080/detail-product?id=<%=product.getId()%>"><img
+                        <a href="<%=request.getContextPath()%>/detail-product?id=<%=product.getId()%>"><img
                                 src="<%=product.getListImage().get(0).getSource()%>"></a>
                     </div>
 
                     <div class="caption">
 
                         <h3>
-                            <a href="http://localhost:8080/detail-product?id=<%=product.getId()%>"><%=product.getName()%>
+                            <a href="<%=request.getContextPath()%>/detail-product?id=<%=product.getId()%>"><%=product.getName()%>
                             </a></h3>
                         <div class="ratting">
                             <% int count = product.getRate();
@@ -225,14 +227,14 @@
                 <div class="thumbnail">
                     <div class="cont-item ">
 
-                        <a href="http://localhost:8080/detail-product?id=<%=product.getId()%>"><img
+                        <a href="<%=request.getContextPath()%>/detail-product?id=<%=product.getId()%>"><img
                                 src="<%=product.getListImage().get(0).getSource()%>"></a>
                     </div>
 
                     <div class="caption">
 
                         <h3>
-                            <a href="http://localhost:8080/detail-product?id=<%=product.getId()%>"><%=product.getName()%>
+                            <a href="<%=request.getContextPath()%>/detail-product?id=<%=product.getId()%>"><%=product.getName()%>
                             </a></h3>
                         <div class="ratting">
                             <% int count = product.getRate();

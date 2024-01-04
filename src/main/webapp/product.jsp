@@ -33,9 +33,9 @@
         <div class="address-book">
             <span><a href="/homepage">Trang chủ</a></span><span>|</span>
             <span><a
-                    href="${pageContext.request.contextPath}/listProduct?kind=0"><%=product.getCategory().getPaCategory().getName()%></a></span><span>|</span>
+                    href="<%=request.getContextPath()%>/listProduct?kind=0"><%=product.getCategory().getPaCategory().getName()%></a></span><span>|</span>
             <span><a
-                    href="${pageContext.request.contextPath}/listProduct?kind=0"><%=product.getCategory().getName()%></a></span><span>|</span>
+                    href="<%=request.getContextPath()%>/listProduct?kind=0"><%=product.getCategory().getName()%></a></span><span>|</span>
             <span><a href="#"><%=product.getName()%></a></span>
         </div>
     </div>
@@ -218,7 +218,7 @@
         <div class="product">
             <div class="thumbnail">
                 <div class="cont-item ">
-                    <a href="${pageContext.request.contextPath}/detail-product?id=<%=productItem.getId()%>"><img
+                    <a href="<%=request.getContextPath()%>/detail-product?id=<%=productItem.getId()%>"><img
                             src="<%=productItem.getMainImage().getSource()%>"
                             alt="">
                     </a>
@@ -226,7 +226,7 @@
 
                 <div class="caption">
                     <h3>
-                        <a href="${pageContext.request.contextPath}/detail-product?id=<%=productItem.getId()%>"><%=productItem.getName()%>
+                        <a href="<%=request.getContextPath()%>/detail-product?id=<%=productItem.getId()%>"><%=productItem.getName()%>
                         </a></h3>
                     <div class="ratting">
                         <% count = productItem.getRate();
