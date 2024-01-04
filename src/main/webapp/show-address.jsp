@@ -67,7 +67,8 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="security-tab" data-toggle="tab" data-target="#security" type="button"
+                        <button class="nav-link" id="security-tab" data-toggle="tab" data-target="#security"
+                                type="button"
                                 role="tab" aria-controls="profile" aria-selected="false" value="<%=user.getId()%>">
                             <i class="fa-solid fa-location-dot"></i>Bảo mật
                         </button>
@@ -147,12 +148,33 @@
                                    placeholder="Số điện thoại">
                             <select id="select-province" class="select-address input">
                                 <option class="option-select-province default" value="-1">Tỉnh / Thành phố</option>
+                                <option class="option-select-province" value="1">TP Hồ Chí Minh</option>
+                                <%--                                <option  class="option-select-province" value="2">An Giang</option>--%>
+                                <%--                                <option  class="option-select-province" value="3">TP Hồ Chí Minh</option>--%>
                             </select>
                             <select id="select-district" class="select-address input">
                                 <option class="option-select-district default" value="-1">Quận / Huyện</option>
+                                <option class="option-select-district" value="1">TP Thủ Đức</option>
+                                <option class="option-select-district" value="1">Quận 1</option>
+                                <option class="option-select-district" value="2">Quận 2</option>
+                                <option class="option-select-district" value="3">Quận 3</option>
+                                <option class="option-select-district" value="4">Quận 4</option>
+                                <option class="option-select-district" value="5">Quận 6</option>
+                                <option class="option-select-district" value="6">Quận 7</option>
+                                <option class="option-select-district" value="7">Quận 8</option>
+                                <option class="option-select-district" value="8">Quận 9</option>
+                                <option class="option-select-district" value="9">Bình Chánh</option>
+                                <option class="option-select-district" value="10">Hoc Môn</option>
                             </select>
                             <select id="select-ward" class="select-address input">
                                 <option class="option-select-ward default" value="-1">Phường / Xã</option>
+                                <option class="option-select-ward" value="1">Linh Trung</option>
+                                <option class="option-select-ward" value="2">Linh Xuân</option>
+                                <option class="option-select-ward" value="3">Hiệp Bình Chánh</option>
+                                <option class="option-select-ward" value="4">Hiệp Bình Phước</option>
+                                <option class="option-select-ward" value="5">Bình Thọ</option>
+                                <option class="option-select-ward" value="6">Linh Tây</option>
+                                <option class="option-select-ward" value="7">Linh Đông</option>
                             </select>
                             <div class="errorAddAddress"></div>
                         </div>
@@ -215,93 +237,93 @@
             window.location = "<%=request.getContextPath()%>/userProfile";
         })
 
-        $(document).on('click', '.btn-add-address', function () {
-            //Lấy danh sách các tỉnh
-            if ($('#select-province').children('.option-select-province').length > 1)
-                return;
-
-            $.ajax({
-                url: "http://140.238.54.136/api/province",
-                type: "get",
-                data: {},
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-                },
-                success: function (response) {
-                    const res = JSON.parse(response);
-                    let data = res.original.data;
-                    for (let i = 0; i < data.length; i++) {
-                        let item = '<option  class="option-select-province" value="' + data[i].ProvinceID + '">' + data[i].ProvinceName + '</option>';
-                        $('#select-province').append(item);
-                    }
-                },
-                error: function (xhr) {
-                }
-            });
-        })
-
-        $(document).on('change', '#select-province', function () {
-            $('#select-district').children('.option-select-district').not('.default').remove();
-            $('#select-ward').children('.option-select-ward').not('.default').remove();
-
-            //Lấy danh sách các huyện của tỉnh
-            const seProvince = $('#select-province');
-            const provinceID = seProvince.val();
-
-            if (provinceID == -1) return;
-
-            $.ajax({
-                url: "http://140.238.54.136/api/district",
-                type: "get",
-                data: {
-                    provinceID: provinceID
-                },
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-                },
-                success: function (response) {
-                    const res = JSON.parse(response);
-                    let data = res.original.data;
-                    for (let i = 0; i < data.length; i++) {
-                        let item = '<option  class="option-select-district" value="' + data[i].DistrictID + '">' + data[i].DistrictName + '</option>';
-                        $('#select-district').append(item);
-                    }
-                },
-                error: function (xhr) {
-                }
-            });
-        })
-
-        $(document).on('change', '#select-district', function () {
-            $('#select-ward').children('.option-select-ward').not('.default').remove();
-
-            //Lấy danh sách các huyện của tỉnh
-            const seDistrict = $('#select-district');
-            const districtID = seDistrict.val();
-
-            if (districtID == -1) return;
-
-            $.ajax({
-                url: "http://140.238.54.136/api/ward",
-                type: "get",
-                data: {
-                    districtID: districtID
-                },
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-                },
-                success: function (response) {
-                    const res = JSON.parse(response);
-                    let data = res.original.data;
-                    for (let i = 0; i < data.length; i++) {
-                        let item = '<option  class="option-select-ward" value="' + data[i].WardCode + '">' + data[i].WardName + '</option>';
-                        $('#select-ward').append(item);
-                    }
-                },
-                error: function (xhr) {
-                }
-            });
-        })
+            // $(document).on('click', '.btn-add-address', function () {
+            //     //Lấy danh sách các tỉnh
+            //     if ($('#select-province').children('.option-select-province').length > 1)
+            //         return;
+            //
+            //     $.ajax({
+            //         url: "http://140.238.54.136/api/province",
+            //         type: "get",
+            //         data: {},
+            //         beforeSend: function (xhr) {
+            //             xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+            //         },
+            //         success: function (response) {
+            //             const res = JSON.parse(response);
+            //             let data = res.original.data;
+            //             for (let i = 0; i < data.length; i++) {
+            //                 let item = '<option  class="option-select-province" value="' + data[i].ProvinceID + '">' + data[i].ProvinceName + '</option>';
+            //                 $('#select-province').append(item);
+            //             }
+            //         },
+            //         error: function (xhr) {
+            //         }
+            //     });
+            // })
+            //
+            // $(document).on('change', '#select-province', function () {
+            //     $('#select-district').children('.option-select-district').not('.default').remove();
+            //     $('#select-ward').children('.option-select-ward').not('.default').remove();
+            //
+            //     //Lấy danh sách các huyện của tỉnh
+            //     const seProvince = $('#select-province');
+            //     const provinceID = seProvince.val();
+            //
+            //     if (provinceID == -1) return;
+            //
+            //     $.ajax({
+            //         url: "http://140.238.54.136/api/district",
+            //         type: "get",
+            //         data: {
+            //             provinceID: provinceID
+            //         },
+            //         beforeSend: function (xhr) {
+            //             xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+            //         },
+            //         success: function (response) {
+            //             const res = JSON.parse(response);
+            //             let data = res.original.data;
+            //             for (let i = 0; i < data.length; i++) {
+            //                 let item = '<option  class="option-select-district" value="' + data[i].DistrictID + '">' + data[i].DistrictName + '</option>';
+            //                 $('#select-district').append(item);
+            //             }
+            //         },
+            //         error: function (xhr) {
+            //         }
+            //     });
+            // })
+            //
+            // $(document).on('change', '#select-district', function () {
+            //     $('#select-ward').children('.option-select-ward').not('.default').remove();
+            //
+            //     //Lấy danh sách các huyện của tỉnh
+            //     const seDistrict = $('#select-district');
+            //     const districtID = seDistrict.val();
+            //
+            //     if (districtID == -1) return;
+            //
+            //     $.ajax({
+            //         url: "http://140.238.54.136/api/ward",
+            //         type: "get",
+            //         data: {
+            //             districtID: districtID
+            //         },
+            //         beforeSend: function (xhr) {
+            //             xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+            //         },
+            //         success: function (response) {
+            //             const res = JSON.parse(response);
+            //             let data = res.original.data;
+            //             for (let i = 0; i < data.length; i++) {
+            //                 let item = '<option  class="option-select-ward" value="' + data[i].WardCode + '">' + data[i].WardName + '</option>';
+            //                 $('#select-ward').append(item);
+            //             }
+            //         },
+            //         error: function (xhr) {
+            //         }
+            //     });
+            // })
 
         // XÓA ĐỊA CHỈ
         $(document).on("click", ".delete-one", function (e) {
