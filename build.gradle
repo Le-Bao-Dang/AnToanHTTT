@@ -14,8 +14,9 @@ apply plugin: 'org.hidetake.ssh'
 remotes {
     host {
         host = '13.251.37.191'
-        user = 'root'
-        password = '123'
+        user = 'ec2-user'
+        identity = file('atbmhttt.pem')
+
     }
 }
 ssh.settings {

@@ -110,7 +110,7 @@ $(document).ready(function () {
             let filename = document.getElementById('hiddenInput').value;
             let splitName = filename.split('.')[0];
 
-            window.location = 'http://localhost:8080/addOrder?idInformation=' +
+            window.location = 'http://shopbanhangonlineatbm.online/addOrder?idInformation=' +
                 idInformation + '&discountCode=' +
                 discountCode + '&note=' +
                 note+ '&fileName='
@@ -126,7 +126,7 @@ $(document).ready(function () {
     })
 
     $('.btn-add-address').click(function () {
-        window.location = 'http://localhost:8080/showAddress';
+        window.location = 'http://shopbanhangonlineatbm.online/showAddress';
     })
 
 

@@ -49,7 +49,7 @@ public class Cart {
             if (lineItem.get(i).getId() == idItemCart) {
                 Log log = new Log();
                 log.setEvent("/cart/removeProduct");
-                log.setDescription("Xóa sản phẩm " + lineItem.get(i).getProduct().getName() + " khỏi giỏ hàng thành công");
+                log.setDescription("Xóa sản phẩm " + lineItem.get(i).getProduct().getName() + " khỏi giỏ it hàng thành công");
                 log.setSeverityLevel(Log.INFO);
                 LogService.getInstance().insert(log);
                 lineItem.remove(i);
